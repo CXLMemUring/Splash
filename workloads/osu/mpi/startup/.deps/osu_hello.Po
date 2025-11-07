@@ -1,0 +1,8 @@
+osu_hello.o: osu_hello.c /usr/include/stdc-predef.h \
+ /usr/lib/x86_64-linux-gnu/openmpi/include/mpi.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
+ /usr/lib/x86_64-linux-gnu/openmpi/include/mpi_portable_platform.h
+/usr/include/stdc-predef.h:
+/usr/lib/x86_64-linux-gnu/openmpi/include/mpi.h:
+/usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h:
+/usr/lib/x86_64-linux-gnu/openmpi/include/mpi_portable_platform.h:

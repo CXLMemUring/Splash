@@ -1,0 +1,21 @@
+# Example MPI hostfile for CXL litmus tests
+# Replace these with your actual host names or IP addresses
+# Format: hostname[:slots]
+
+# Example 1: Using hostnames
+host1 slots=1
+host2 slots=1
+
+# Example 2: Using IP addresses
+# 192.168.1.10 slots=1
+# 192.168.1.11 slots=1
+
+# Example 3: With specific network interface
+# host1-cxl slots=1
+# host2-cxl slots=1
+
+# Notes:
+# - You need exactly 2 hosts for these litmus tests
+# - Make sure the hosts are connected via CXL switch
+# - Ensure MPI is properly configured on both hosts
+# - Passwordless SSH should be set up between hosts

@@ -1,0 +1,788 @@
+killing previous experiments...
+deleting log files...
+I20251023 17:50:58.478374 173664 Database.h:169] creating hash tables for database...
+I20251023 17:50:58.481132 173664 Database.h:149] warehouse initialization finished in 0 milliseconds.
+I20251023 17:50:58.481511 173664 Database.h:149] district initialization finished in 0 milliseconds.
+I20251023 17:50:58.567351 173664 Database.h:149] customer initialization finished in 85 milliseconds.
+I20251023 17:50:58.581876 173664 Database.h:149] customer_name_idx initialization finished in 14 milliseconds.
+I20251023 17:50:58.596922 173664 Database.h:149] history initialization finished in 15 milliseconds.
+I20251023 17:50:58.839499 173664 Database.h:149] new_order initialization finished in 242 milliseconds.
+I20251023 17:50:58.847616 173664 Database.h:149] order initialization finished in 8 milliseconds.
+I20251023 17:50:58.862892 173664 Database.h:149] order_cust initialization finished in 15 milliseconds.
+I20251023 17:50:59.001495 173664 Database.h:149] order_line initialization finished in 138 milliseconds.
+I20251023 17:50:59.041312 173664 Database.h:149] item initialization finished in 39 milliseconds.
+I20251023 17:50:59.198982 173664 Database.h:149] stock initialization finished in 157 milliseconds.
+I20251023 17:50:59.358332 173664 Database.h:736] TPC-C consistency check passed!
+thread '<unnamed>' panicked at cxlalloc/src/raw/ivshmem.rs:26:14:
+Failed to open `/dev/cxl_ivpci0`: is CXL driver module loaded?: Os { code: 2, kind: NotFound, message: "No such file or directory" }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+thread '<unnamed>' panicked at library/core/src/panicking.rs:221:5:
+panic in a function that cannot unwind
+stack backtrace:
+   0:           0x80d715 - std::backtrace_rs::backtrace::libunwind::trace::hb29a729cf47ecf1c
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/../../backtrace/src/backtrace/libunwind.rs:116:5
+   1:           0x80d715 - std::backtrace_rs::backtrace::trace_unsynchronized::hc5fec0f2ed7b44c5
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/../../backtrace/src/backtrace/mod.rs:66:5
+   2:           0x80d715 - std::sys::backtrace::_print_fmt::ha4f63e0e9697258b
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/sys/backtrace.rs:65:5
+   3:           0x80d715 - <std::sys::backtrace::BacktraceLock::print::DisplayBacktrace as core::fmt::Display>::fmt::h669a4ee5d624d2a0
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/sys/backtrace.rs:40:26
+   4:           0x85c8ab - core::fmt::rt::Argument::fmt::hc959f0bbdabf725b
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/fmt/rt.rs:173:76
+   5:           0x85c8ab - core::fmt::write::hdc644ce60b2640e2
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/fmt/mod.rs:1182:21
+   6:           0x80227f - std::io::Write::write_fmt::hf03cfb5bcbbc99b9
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/io/mod.rs:1827:15
+   7:           0x80ff01 - std::sys::backtrace::BacktraceLock::print::h6f617cbe13dd42a4
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/sys/backtrace.rs:43:9
+   8:           0x80ff01 - std::panicking::default_hook::{{closure}}::hab809bf413a64a5a
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/panicking.rs:269:22
+   9:           0x80fbdc - std::panicking::default_hook::hcff2421ae6fdcdf4
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/panicking.rs:296:9
+  10:           0x810691 - std::panicking::rust_panic_with_hook::h1e46d77746e14164
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/panicking.rs:800:13
+  11:           0x8104c3 - std::panicking::begin_panic_handler::{{closure}}::hf2b218dde975f523
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/panicking.rs:667:13
+  12:           0x80dbd9 - std::sys::backtrace::__rust_end_short_backtrace::hab3d3f913d23d903
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/sys/backtrace.rs:168:18
+  13:           0x810184 - rust_begin_unwind
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/panicking.rs:665:5
+  14:           0x858ea5 - core::panicking::panic_nounwind_fmt::runtime::hb1b3aa49c097325e
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/panicking.rs:112:18
+  15:           0x858ea5 - core::panicking::panic_nounwind_fmt::h7f4e2d01fae4217a
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/panicking.rs:122:5
+  16:           0x858f32 - core::panicking::panic_nounwind::h1d423096d14a9ea9
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/panicking.rs:221:5
+  17:           0x859156 - core::panicking::panic_cannot_unwind::h021e5c45ffc70451
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/panicking.rs:309:5
+  18:           0x7b37a8 - cxlalloc_init
+                               at /home/cc/pasha/dependencies/cxlalloc/cxlalloc-static/src/lib.rs:143:1
+  19:           0x6c19a8 - _ZN4star9CXLMemory30init_cxlalloc_for_given_threadEmmmm
+                               at /root/CXLMemSim/workloads/tigon/common/CXLMemory.h:66:17
+  20:           0x5283c5 - _ZN4star11CoordinatorC2INS_4tpcc8DatabaseENS2_7ContextEEEmRT_RT0_
+                               at /root/CXLMemSim/workloads/tigon/core/Coordinator.h:46:28
+  21:           0x512c4d - main
+                               at /root/CXLMemSim/workloads/tigon/bench_tpcc.cpp:61:20
+  22:     0x777d36a33ca8 - <unknown>
+  23:     0x777d36a33d65 - __libc_start_main
+  24:           0x50fb25 - _start
+  25:                0x0 - <unknown>
+thread caused non-unwinding panic. aborting.
+*** Aborted at 1761241859 (unix time) try "date -d @1761241859" if you are using GNU date ***
+PC: @                0x0 (unknown)
+*** SIGABRT (@0x2a660) received by PID 173664 (TID 0x777d36ec1c80) from PID 173664; stack trace: ***
+    @     0x777d3736e206 (unknown)
+    @     0x777d36a49df0 (unknown)
+    @     0x777d36a9e95c (unknown)
+    @     0x777d36a49cc2 gsignal
+    @     0x777d36a324ac abort
+    @           0x81ba6a std::sys::pal::unix::abort_internal::h1323ac53033b4dae
+    @           0x810981 std::panicking::rust_panic_with_hook::h1e46d77746e14164
+    @           0x8104c3 std::panicking::begin_panic_handler::_$u7b$$u7b$closure$u7d$$u7d$::hf2b218dde975f523
+    @           0x80dbd9 std::sys::backtrace::__rust_end_short_backtrace::hab3d3f913d23d903
+    @           0x810184 rust_begin_unwind
+    @           0x858ea5 core::panicking::panic_nounwind_fmt::h7f4e2d01fae4217a
+    @           0x858f32 core::panicking::panic_nounwind::h1d423096d14a9ea9
+    @           0x859156 core::panicking::panic_cannot_unwind::h021e5c45ffc70451
+    @           0x7b37a8 cxlalloc_init
+    @           0x6c19a8 star::CXLMemory::init_cxlalloc_for_given_thread()
+    @           0x5283c5 star::Coordinator::Coordinator<>()
+    @           0x512c4d main
+    @     0x777d36a33ca8 (unknown)
+    @     0x777d36a33d65 __libc_start_main
+    @           0x50fb25 _start
+killing previous experiments...
+killing previous experiments...
+deleting log files...
+I20251023 17:51:10.743309 173745 Database.h:169] creating hash tables for database...
+I20251023 17:51:10.748585 173745 Database.h:149] warehouse initialization finished in 2 milliseconds.
+I20251023 17:51:10.749353 173745 Database.h:149] district initialization finished in 0 milliseconds.
+I20251023 17:51:10.841077 173745 Database.h:149] customer initialization finished in 91 milliseconds.
+I20251023 17:51:10.856626 173745 Database.h:149] customer_name_idx initialization finished in 15 milliseconds.
+I20251023 17:51:10.872232 173745 Database.h:149] history initialization finished in 15 milliseconds.
+I20251023 17:51:11.117476 173745 Database.h:149] new_order initialization finished in 245 milliseconds.
+I20251023 17:51:11.125561 173745 Database.h:149] order initialization finished in 8 milliseconds.
+I20251023 17:51:11.164597 173745 Database.h:149] order_cust initialization finished in 39 milliseconds.
+I20251023 17:51:11.285635 173745 Database.h:149] order_line initialization finished in 121 milliseconds.
+I20251023 17:51:11.322074 173745 Database.h:149] item initialization finished in 36 milliseconds.
+I20251023 17:51:11.470374 173745 Database.h:149] stock initialization finished in 148 milliseconds.
+I20251023 17:51:11.638121 173745 Database.h:736] TPC-C consistency check passed!
+thread '<unnamed>' panicked at cxlalloc/src/raw/ivshmem.rs:26:14:
+Failed to open `/dev/cxl_ivpci0`: is CXL driver module loaded?: Os { code: 2, kind: NotFound, message: "No such file or directory" }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+thread '<unnamed>' panicked at library/core/src/panicking.rs:221:5:
+panic in a function that cannot unwind
+stack backtrace:
+   0:           0x80d715 - std::backtrace_rs::backtrace::libunwind::trace::hb29a729cf47ecf1c
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/../../backtrace/src/backtrace/libunwind.rs:116:5
+   1:           0x80d715 - std::backtrace_rs::backtrace::trace_unsynchronized::hc5fec0f2ed7b44c5
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/../../backtrace/src/backtrace/mod.rs:66:5
+   2:           0x80d715 - std::sys::backtrace::_print_fmt::ha4f63e0e9697258b
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/sys/backtrace.rs:65:5
+   3:           0x80d715 - <std::sys::backtrace::BacktraceLock::print::DisplayBacktrace as core::fmt::Display>::fmt::h669a4ee5d624d2a0
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/sys/backtrace.rs:40:26
+   4:           0x85c8ab - core::fmt::rt::Argument::fmt::hc959f0bbdabf725b
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/fmt/rt.rs:173:76
+   5:           0x85c8ab - core::fmt::write::hdc644ce60b2640e2
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/fmt/mod.rs:1182:21
+   6:           0x80227f - std::io::Write::write_fmt::hf03cfb5bcbbc99b9
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/io/mod.rs:1827:15
+   7:           0x80ff01 - std::sys::backtrace::BacktraceLock::print::h6f617cbe13dd42a4
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/sys/backtrace.rs:43:9
+   8:           0x80ff01 - std::panicking::default_hook::{{closure}}::hab809bf413a64a5a
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/panicking.rs:269:22
+   9:           0x80fbdc - std::panicking::default_hook::hcff2421ae6fdcdf4
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/panicking.rs:296:9
+  10:           0x810691 - std::panicking::rust_panic_with_hook::h1e46d77746e14164
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/panicking.rs:800:13
+  11:           0x8104c3 - std::panicking::begin_panic_handler::{{closure}}::hf2b218dde975f523
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/panicking.rs:667:13
+  12:           0x80dbd9 - std::sys::backtrace::__rust_end_short_backtrace::hab3d3f913d23d903
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/sys/backtrace.rs:168:18
+  13:           0x810184 - rust_begin_unwind
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/panicking.rs:665:5
+  14:           0x858ea5 - core::panicking::panic_nounwind_fmt::runtime::hb1b3aa49c097325e
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/panicking.rs:112:18
+  15:           0x858ea5 - core::panicking::panic_nounwind_fmt::h7f4e2d01fae4217a
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/panicking.rs:122:5
+  16:           0x858f32 - core::panicking::panic_nounwind::h1d423096d14a9ea9
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/panicking.rs:221:5
+  17:           0x859156 - core::panicking::panic_cannot_unwind::h021e5c45ffc70451
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/panicking.rs:309:5
+  18:           0x7b37a8 - cxlalloc_init
+                               at /home/cc/pasha/dependencies/cxlalloc/cxlalloc-static/src/lib.rs:143:1
+  19:           0x6c19a8 - _ZN4star9CXLMemory30init_cxlalloc_for_given_threadEmmmm
+                               at /root/CXLMemSim/workloads/tigon/common/CXLMemory.h:66:17
+  20:           0x5283c5 - _ZN4star11CoordinatorC2INS_4tpcc8DatabaseENS2_7ContextEEEmRT_RT0_
+                               at /root/CXLMemSim/workloads/tigon/core/Coordinator.h:46:28
+  21:           0x512c4d - main
+                               at /root/CXLMemSim/workloads/tigon/bench_tpcc.cpp:61:20
+  22:     0x7b0011033ca8 - <unknown>
+  23:     0x7b0011033d65 - __libc_start_main
+  24:           0x50fb25 - _start
+  25:                0x0 - <unknown>
+thread caused non-unwinding panic. aborting.
+*** Aborted at 1761241871 (unix time) try "date -d @1761241871" if you are using GNU date ***
+PC: @                0x0 (unknown)
+*** SIGABRT (@0x2a6b1) received by PID 173745 (TID 0x7b00115fdc80) from PID 173745; stack trace: ***
+    @     0x7b0011acd206 (unknown)
+    @     0x7b0011049df0 (unknown)
+    @     0x7b001109e95c (unknown)
+    @     0x7b0011049cc2 gsignal
+    @     0x7b00110324ac abort
+    @           0x81ba6a std::sys::pal::unix::abort_internal::h1323ac53033b4dae
+    @           0x810981 std::panicking::rust_panic_with_hook::h1e46d77746e14164
+    @           0x8104c3 std::panicking::begin_panic_handler::_$u7b$$u7b$closure$u7d$$u7d$::hf2b218dde975f523
+    @           0x80dbd9 std::sys::backtrace::__rust_end_short_backtrace::hab3d3f913d23d903
+    @           0x810184 rust_begin_unwind
+    @           0x858ea5 core::panicking::panic_nounwind_fmt::h7f4e2d01fae4217a
+    @           0x858f32 core::panicking::panic_nounwind::h1d423096d14a9ea9
+    @           0x859156 core::panicking::panic_cannot_unwind::h021e5c45ffc70451
+    @           0x7b37a8 cxlalloc_init
+    @           0x6c19a8 star::CXLMemory::init_cxlalloc_for_given_thread()
+    @           0x5283c5 star::Coordinator::Coordinator<>()
+    @           0x512c4d main
+    @     0x7b0011033ca8 (unknown)
+    @     0x7b0011033d65 __libc_start_main
+    @           0x50fb25 _start
+killing previous experiments...
+killing previous experiments...
+deleting log files...
+I20251023 17:51:23.167186 173826 Database.h:169] creating hash tables for database...
+I20251023 17:51:23.171145 173826 Database.h:149] warehouse initialization finished in 1 milliseconds.
+I20251023 17:51:23.171693 173826 Database.h:149] district initialization finished in 0 milliseconds.
+I20251023 17:51:23.262688 173826 Database.h:149] customer initialization finished in 90 milliseconds.
+I20251023 17:51:23.288054 173826 Database.h:149] customer_name_idx initialization finished in 25 milliseconds.
+I20251023 17:51:23.302431 173826 Database.h:149] history initialization finished in 14 milliseconds.
+I20251023 17:51:23.548622 173826 Database.h:149] new_order initialization finished in 246 milliseconds.
+I20251023 17:51:23.556465 173826 Database.h:149] order initialization finished in 7 milliseconds.
+I20251023 17:51:23.571486 173826 Database.h:149] order_cust initialization finished in 14 milliseconds.
+I20251023 17:51:23.691318 173826 Database.h:149] order_line initialization finished in 119 milliseconds.
+I20251023 17:51:23.727825 173826 Database.h:149] item initialization finished in 36 milliseconds.
+I20251023 17:51:23.877319 173826 Database.h:149] stock initialization finished in 149 milliseconds.
+I20251023 17:51:24.039376 173826 Database.h:736] TPC-C consistency check passed!
+thread '<unnamed>' panicked at cxlalloc/src/raw/ivshmem.rs:26:14:
+Failed to open `/dev/cxl_ivpci0`: is CXL driver module loaded?: Os { code: 2, kind: NotFound, message: "No such file or directory" }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+thread '<unnamed>' panicked at library/core/src/panicking.rs:221:5:
+panic in a function that cannot unwind
+stack backtrace:
+   0:           0x80d715 - std::backtrace_rs::backtrace::libunwind::trace::hb29a729cf47ecf1c
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/../../backtrace/src/backtrace/libunwind.rs:116:5
+   1:           0x80d715 - std::backtrace_rs::backtrace::trace_unsynchronized::hc5fec0f2ed7b44c5
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/../../backtrace/src/backtrace/mod.rs:66:5
+   2:           0x80d715 - std::sys::backtrace::_print_fmt::ha4f63e0e9697258b
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/sys/backtrace.rs:65:5
+   3:           0x80d715 - <std::sys::backtrace::BacktraceLock::print::DisplayBacktrace as core::fmt::Display>::fmt::h669a4ee5d624d2a0
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/sys/backtrace.rs:40:26
+   4:           0x85c8ab - core::fmt::rt::Argument::fmt::hc959f0bbdabf725b
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/fmt/rt.rs:173:76
+   5:           0x85c8ab - core::fmt::write::hdc644ce60b2640e2
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/fmt/mod.rs:1182:21
+   6:           0x80227f - std::io::Write::write_fmt::hf03cfb5bcbbc99b9
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/io/mod.rs:1827:15
+   7:           0x80ff01 - std::sys::backtrace::BacktraceLock::print::h6f617cbe13dd42a4
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/sys/backtrace.rs:43:9
+   8:           0x80ff01 - std::panicking::default_hook::{{closure}}::hab809bf413a64a5a
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/panicking.rs:269:22
+   9:           0x80fbdc - std::panicking::default_hook::hcff2421ae6fdcdf4
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/panicking.rs:296:9
+  10:           0x810691 - std::panicking::rust_panic_with_hook::h1e46d77746e14164
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/panicking.rs:800:13
+  11:           0x8104c3 - std::panicking::begin_panic_handler::{{closure}}::hf2b218dde975f523
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/panicking.rs:667:13
+  12:           0x80dbd9 - std::sys::backtrace::__rust_end_short_backtrace::hab3d3f913d23d903
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/sys/backtrace.rs:168:18
+  13:           0x810184 - rust_begin_unwind
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/panicking.rs:665:5
+  14:           0x858ea5 - core::panicking::panic_nounwind_fmt::runtime::hb1b3aa49c097325e
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/panicking.rs:112:18
+  15:           0x858ea5 - core::panicking::panic_nounwind_fmt::h7f4e2d01fae4217a
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/panicking.rs:122:5
+  16:           0x858f32 - core::panicking::panic_nounwind::h1d423096d14a9ea9
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/panicking.rs:221:5
+  17:           0x859156 - core::panicking::panic_cannot_unwind::h021e5c45ffc70451
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/panicking.rs:309:5
+  18:           0x7b37a8 - cxlalloc_init
+                               at /home/cc/pasha/dependencies/cxlalloc/cxlalloc-static/src/lib.rs:143:1
+  19:           0x6c19a8 - _ZN4star9CXLMemory30init_cxlalloc_for_given_threadEmmmm
+                               at /root/CXLMemSim/workloads/tigon/common/CXLMemory.h:66:17
+  20:           0x5283c5 - _ZN4star11CoordinatorC2INS_4tpcc8DatabaseENS2_7ContextEEEmRT_RT0_
+                               at /root/CXLMemSim/workloads/tigon/core/Coordinator.h:46:28
+  21:           0x512c4d - main
+                               at /root/CXLMemSim/workloads/tigon/bench_tpcc.cpp:61:20
+  22:     0x795af6033ca8 - <unknown>
+  23:     0x795af6033d65 - __libc_start_main
+  24:           0x50fb25 - _start
+  25:                0x0 - <unknown>
+thread caused non-unwinding panic. aborting.
+*** Aborted at 1761241884 (unix time) try "date -d @1761241884" if you are using GNU date ***
+PC: @                0x0 (unknown)
+*** SIGABRT (@0x2a702) received by PID 173826 (TID 0x795af6007c80) from PID 173826; stack trace: ***
+    @     0x795af6935206 (unknown)
+    @     0x795af6049df0 (unknown)
+    @     0x795af609e95c (unknown)
+    @     0x795af6049cc2 gsignal
+    @     0x795af60324ac abort
+    @           0x81ba6a std::sys::pal::unix::abort_internal::h1323ac53033b4dae
+    @           0x810981 std::panicking::rust_panic_with_hook::h1e46d77746e14164
+    @           0x8104c3 std::panicking::begin_panic_handler::_$u7b$$u7b$closure$u7d$$u7d$::hf2b218dde975f523
+    @           0x80dbd9 std::sys::backtrace::__rust_end_short_backtrace::hab3d3f913d23d903
+    @           0x810184 rust_begin_unwind
+    @           0x858ea5 core::panicking::panic_nounwind_fmt::h7f4e2d01fae4217a
+    @           0x858f32 core::panicking::panic_nounwind::h1d423096d14a9ea9
+    @           0x859156 core::panicking::panic_cannot_unwind::h021e5c45ffc70451
+    @           0x7b37a8 cxlalloc_init
+    @           0x6c19a8 star::CXLMemory::init_cxlalloc_for_given_thread()
+    @           0x5283c5 star::Coordinator::Coordinator<>()
+    @           0x512c4d main
+    @     0x795af6033ca8 (unknown)
+    @     0x795af6033d65 __libc_start_main
+    @           0x50fb25 _start
+killing previous experiments...
+killing previous experiments...
+deleting log files...
+I20251023 17:51:35.519703 173907 Database.h:169] creating hash tables for database...
+I20251023 17:51:35.522281 173907 Database.h:149] warehouse initialization finished in 1 milliseconds.
+I20251023 17:51:35.522686 173907 Database.h:149] district initialization finished in 0 milliseconds.
+I20251023 17:51:35.648825 173907 Database.h:149] customer initialization finished in 126 milliseconds.
+I20251023 17:51:35.670040 173907 Database.h:149] customer_name_idx initialization finished in 21 milliseconds.
+I20251023 17:51:35.689081 173907 Database.h:149] history initialization finished in 19 milliseconds.
+I20251023 17:51:35.932107 173907 Database.h:149] new_order initialization finished in 243 milliseconds.
+I20251023 17:51:35.940142 173907 Database.h:149] order initialization finished in 8 milliseconds.
+I20251023 17:51:35.955736 173907 Database.h:149] order_cust initialization finished in 15 milliseconds.
+I20251023 17:51:36.082639 173907 Database.h:149] order_line initialization finished in 126 milliseconds.
+I20251023 17:51:36.120127 173907 Database.h:149] item initialization finished in 37 milliseconds.
+I20251023 17:51:36.272527 173907 Database.h:149] stock initialization finished in 152 milliseconds.
+I20251023 17:51:36.438153 173907 Database.h:736] TPC-C consistency check passed!
+thread '<unnamed>' panicked at cxlalloc/src/raw/ivshmem.rs:26:14:
+Failed to open `/dev/cxl_ivpci0`: is CXL driver module loaded?: Os { code: 2, kind: NotFound, message: "No such file or directory" }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+thread '<unnamed>' panicked at library/core/src/panicking.rs:221:5:
+panic in a function that cannot unwind
+stack backtrace:
+   0:           0x80d715 - std::backtrace_rs::backtrace::libunwind::trace::hb29a729cf47ecf1c
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/../../backtrace/src/backtrace/libunwind.rs:116:5
+   1:           0x80d715 - std::backtrace_rs::backtrace::trace_unsynchronized::hc5fec0f2ed7b44c5
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/../../backtrace/src/backtrace/mod.rs:66:5
+   2:           0x80d715 - std::sys::backtrace::_print_fmt::ha4f63e0e9697258b
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/sys/backtrace.rs:65:5
+   3:           0x80d715 - <std::sys::backtrace::BacktraceLock::print::DisplayBacktrace as core::fmt::Display>::fmt::h669a4ee5d624d2a0
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/sys/backtrace.rs:40:26
+   4:           0x85c8ab - core::fmt::rt::Argument::fmt::hc959f0bbdabf725b
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/fmt/rt.rs:173:76
+   5:           0x85c8ab - core::fmt::write::hdc644ce60b2640e2
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/fmt/mod.rs:1182:21
+   6:           0x80227f - std::io::Write::write_fmt::hf03cfb5bcbbc99b9
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/io/mod.rs:1827:15
+   7:           0x80ff01 - std::sys::backtrace::BacktraceLock::print::h6f617cbe13dd42a4
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/sys/backtrace.rs:43:9
+   8:           0x80ff01 - std::panicking::default_hook::{{closure}}::hab809bf413a64a5a
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/panicking.rs:269:22
+   9:           0x80fbdc - std::panicking::default_hook::hcff2421ae6fdcdf4
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/panicking.rs:296:9
+  10:           0x810691 - std::panicking::rust_panic_with_hook::h1e46d77746e14164
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/panicking.rs:800:13
+  11:           0x8104c3 - std::panicking::begin_panic_handler::{{closure}}::hf2b218dde975f523
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/panicking.rs:667:13
+  12:           0x80dbd9 - std::sys::backtrace::__rust_end_short_backtrace::hab3d3f913d23d903
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/sys/backtrace.rs:168:18
+  13:           0x810184 - rust_begin_unwind
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/panicking.rs:665:5
+  14:           0x858ea5 - core::panicking::panic_nounwind_fmt::runtime::hb1b3aa49c097325e
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/panicking.rs:112:18
+  15:           0x858ea5 - core::panicking::panic_nounwind_fmt::h7f4e2d01fae4217a
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/panicking.rs:122:5
+  16:           0x858f32 - core::panicking::panic_nounwind::h1d423096d14a9ea9
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/panicking.rs:221:5
+  17:           0x859156 - core::panicking::panic_cannot_unwind::h021e5c45ffc70451
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/panicking.rs:309:5
+  18:           0x7b37a8 - cxlalloc_init
+                               at /home/cc/pasha/dependencies/cxlalloc/cxlalloc-static/src/lib.rs:143:1
+  19:           0x6c19a8 - _ZN4star9CXLMemory30init_cxlalloc_for_given_threadEmmmm
+                               at /root/CXLMemSim/workloads/tigon/common/CXLMemory.h:66:17
+  20:           0x5283c5 - _ZN4star11CoordinatorC2INS_4tpcc8DatabaseENS2_7ContextEEEmRT_RT0_
+                               at /root/CXLMemSim/workloads/tigon/core/Coordinator.h:46:28
+  21:           0x512c4d - main
+                               at /root/CXLMemSim/workloads/tigon/bench_tpcc.cpp:61:20
+  22:     0x7c18a9e33ca8 - <unknown>
+  23:     0x7c18a9e33d65 - __libc_start_main
+  24:           0x50fb25 - _start
+  25:                0x0 - <unknown>
+thread caused non-unwinding panic. aborting.
+*** Aborted at 1761241896 (unix time) try "date -d @1761241896" if you are using GNU date ***
+PC: @                0x0 (unknown)
+*** SIGABRT (@0x2a753) received by PID 173907 (TID 0x7c18a9dd6c80) from PID 173907; stack trace: ***
+    @     0x7c18aa3e8206 (unknown)
+    @     0x7c18a9e49df0 (unknown)
+    @     0x7c18a9e9e95c (unknown)
+    @     0x7c18a9e49cc2 gsignal
+    @     0x7c18a9e324ac abort
+    @           0x81ba6a std::sys::pal::unix::abort_internal::h1323ac53033b4dae
+    @           0x810981 std::panicking::rust_panic_with_hook::h1e46d77746e14164
+    @           0x8104c3 std::panicking::begin_panic_handler::_$u7b$$u7b$closure$u7d$$u7d$::hf2b218dde975f523
+    @           0x80dbd9 std::sys::backtrace::__rust_end_short_backtrace::hab3d3f913d23d903
+    @           0x810184 rust_begin_unwind
+    @           0x858ea5 core::panicking::panic_nounwind_fmt::h7f4e2d01fae4217a
+    @           0x858f32 core::panicking::panic_nounwind::h1d423096d14a9ea9
+    @           0x859156 core::panicking::panic_cannot_unwind::h021e5c45ffc70451
+    @           0x7b37a8 cxlalloc_init
+    @           0x6c19a8 star::CXLMemory::init_cxlalloc_for_given_thread()
+    @           0x5283c5 star::Coordinator::Coordinator<>()
+    @           0x512c4d main
+    @     0x7c18a9e33ca8 (unknown)
+    @     0x7c18a9e33d65 __libc_start_main
+    @           0x50fb25 _start
+killing previous experiments...
+killing previous experiments...
+deleting log files...
+I20251023 17:51:47.875694 173988 Database.h:169] creating hash tables for database...
+I20251023 17:51:47.878427 173988 Database.h:149] warehouse initialization finished in 1 milliseconds.
+I20251023 17:51:47.878804 173988 Database.h:149] district initialization finished in 0 milliseconds.
+I20251023 17:51:47.967523 173988 Database.h:149] customer initialization finished in 88 milliseconds.
+I20251023 17:51:48.000977 173988 Database.h:149] customer_name_idx initialization finished in 33 milliseconds.
+I20251023 17:51:48.017383 173988 Database.h:149] history initialization finished in 16 milliseconds.
+I20251023 17:51:48.260149 173988 Database.h:149] new_order initialization finished in 242 milliseconds.
+I20251023 17:51:48.267585 173988 Database.h:149] order initialization finished in 7 milliseconds.
+I20251023 17:51:48.282310 173988 Database.h:149] order_cust initialization finished in 14 milliseconds.
+I20251023 17:51:48.403781 173988 Database.h:149] order_line initialization finished in 121 milliseconds.
+I20251023 17:51:48.441895 173988 Database.h:149] item initialization finished in 38 milliseconds.
+I20251023 17:51:48.592950 173988 Database.h:149] stock initialization finished in 151 milliseconds.
+I20251023 17:51:48.761144 173988 Database.h:736] TPC-C consistency check passed!
+thread '<unnamed>' panicked at cxlalloc/src/raw/ivshmem.rs:26:14:
+Failed to open `/dev/cxl_ivpci0`: is CXL driver module loaded?: Os { code: 2, kind: NotFound, message: "No such file or directory" }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+thread '<unnamed>' panicked at library/core/src/panicking.rs:221:5:
+panic in a function that cannot unwind
+stack backtrace:
+   0:           0x80d715 - std::backtrace_rs::backtrace::libunwind::trace::hb29a729cf47ecf1c
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/../../backtrace/src/backtrace/libunwind.rs:116:5
+   1:           0x80d715 - std::backtrace_rs::backtrace::trace_unsynchronized::hc5fec0f2ed7b44c5
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/../../backtrace/src/backtrace/mod.rs:66:5
+   2:           0x80d715 - std::sys::backtrace::_print_fmt::ha4f63e0e9697258b
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/sys/backtrace.rs:65:5
+   3:           0x80d715 - <std::sys::backtrace::BacktraceLock::print::DisplayBacktrace as core::fmt::Display>::fmt::h669a4ee5d624d2a0
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/sys/backtrace.rs:40:26
+   4:           0x85c8ab - core::fmt::rt::Argument::fmt::hc959f0bbdabf725b
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/fmt/rt.rs:173:76
+   5:           0x85c8ab - core::fmt::write::hdc644ce60b2640e2
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/fmt/mod.rs:1182:21
+   6:           0x80227f - std::io::Write::write_fmt::hf03cfb5bcbbc99b9
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/io/mod.rs:1827:15
+   7:           0x80ff01 - std::sys::backtrace::BacktraceLock::print::h6f617cbe13dd42a4
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/sys/backtrace.rs:43:9
+   8:           0x80ff01 - std::panicking::default_hook::{{closure}}::hab809bf413a64a5a
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/panicking.rs:269:22
+   9:           0x80fbdc - std::panicking::default_hook::hcff2421ae6fdcdf4
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/panicking.rs:296:9
+  10:           0x810691 - std::panicking::rust_panic_with_hook::h1e46d77746e14164
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/panicking.rs:800:13
+  11:           0x8104c3 - std::panicking::begin_panic_handler::{{closure}}::hf2b218dde975f523
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/panicking.rs:667:13
+  12:           0x80dbd9 - std::sys::backtrace::__rust_end_short_backtrace::hab3d3f913d23d903
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/sys/backtrace.rs:168:18
+  13:           0x810184 - rust_begin_unwind
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/panicking.rs:665:5
+  14:           0x858ea5 - core::panicking::panic_nounwind_fmt::runtime::hb1b3aa49c097325e
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/panicking.rs:112:18
+  15:           0x858ea5 - core::panicking::panic_nounwind_fmt::h7f4e2d01fae4217a
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/panicking.rs:122:5
+  16:           0x858f32 - core::panicking::panic_nounwind::h1d423096d14a9ea9
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/panicking.rs:221:5
+  17:           0x859156 - core::panicking::panic_cannot_unwind::h021e5c45ffc70451
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/panicking.rs:309:5
+  18:           0x7b37a8 - cxlalloc_init
+                               at /home/cc/pasha/dependencies/cxlalloc/cxlalloc-static/src/lib.rs:143:1
+  19:           0x6c19a8 - _ZN4star9CXLMemory30init_cxlalloc_for_given_threadEmmmm
+                               at /root/CXLMemSim/workloads/tigon/common/CXLMemory.h:66:17
+  20:           0x5283c5 - _ZN4star11CoordinatorC2INS_4tpcc8DatabaseENS2_7ContextEEEmRT_RT0_
+                               at /root/CXLMemSim/workloads/tigon/core/Coordinator.h:46:28
+  21:           0x512c4d - main
+                               at /root/CXLMemSim/workloads/tigon/bench_tpcc.cpp:61:20
+  22:     0x75f03bc33ca8 - <unknown>
+  23:     0x75f03bc33d65 - __libc_start_main
+  24:           0x50fb25 - _start
+  25:                0x0 - <unknown>
+thread caused non-unwinding panic. aborting.
+*** Aborted at 1761241908 (unix time) try "date -d @1761241908" if you are using GNU date ***
+PC: @                0x0 (unknown)
+*** SIGABRT (@0x2a7a4) received by PID 173988 (TID 0x75f03c1fdc80) from PID 173988; stack trace: ***
+    @     0x75f03c6ce206 (unknown)
+    @     0x75f03bc49df0 (unknown)
+    @     0x75f03bc9e95c (unknown)
+    @     0x75f03bc49cc2 gsignal
+    @     0x75f03bc324ac abort
+    @           0x81ba6a std::sys::pal::unix::abort_internal::h1323ac53033b4dae
+    @           0x810981 std::panicking::rust_panic_with_hook::h1e46d77746e14164
+    @           0x8104c3 std::panicking::begin_panic_handler::_$u7b$$u7b$closure$u7d$$u7d$::hf2b218dde975f523
+    @           0x80dbd9 std::sys::backtrace::__rust_end_short_backtrace::hab3d3f913d23d903
+    @           0x810184 rust_begin_unwind
+    @           0x858ea5 core::panicking::panic_nounwind_fmt::h7f4e2d01fae4217a
+    @           0x858f32 core::panicking::panic_nounwind::h1d423096d14a9ea9
+    @           0x859156 core::panicking::panic_cannot_unwind::h021e5c45ffc70451
+    @           0x7b37a8 cxlalloc_init
+    @           0x6c19a8 star::CXLMemory::init_cxlalloc_for_given_thread()
+    @           0x5283c5 star::Coordinator::Coordinator<>()
+    @           0x512c4d main
+    @     0x75f03bc33ca8 (unknown)
+    @     0x75f03bc33d65 __libc_start_main
+    @           0x50fb25 _start
+killing previous experiments...
+killing previous experiments...
+deleting log files...
+I20251023 17:52:00.254383 174069 Database.h:169] creating hash tables for database...
+I20251023 17:52:00.258455 174069 Database.h:149] warehouse initialization finished in 1 milliseconds.
+I20251023 17:52:00.259110 174069 Database.h:149] district initialization finished in 0 milliseconds.
+I20251023 17:52:00.346655 174069 Database.h:149] customer initialization finished in 87 milliseconds.
+I20251023 17:52:00.364194 174069 Database.h:149] customer_name_idx initialization finished in 17 milliseconds.
+I20251023 17:52:00.384126 174069 Database.h:149] history initialization finished in 19 milliseconds.
+I20251023 17:52:00.644443 174069 Database.h:149] new_order initialization finished in 260 milliseconds.
+I20251023 17:52:00.652230 174069 Database.h:149] order initialization finished in 7 milliseconds.
+I20251023 17:52:00.667050 174069 Database.h:149] order_cust initialization finished in 14 milliseconds.
+I20251023 17:52:00.785053 174069 Database.h:149] order_line initialization finished in 117 milliseconds.
+I20251023 17:52:00.824541 174069 Database.h:149] item initialization finished in 39 milliseconds.
+I20251023 17:52:00.976076 174069 Database.h:149] stock initialization finished in 151 milliseconds.
+I20251023 17:52:01.201175 174069 Database.h:736] TPC-C consistency check passed!
+thread '<unnamed>' panicked at cxlalloc/src/raw/ivshmem.rs:26:14:
+Failed to open `/dev/cxl_ivpci0`: is CXL driver module loaded?: Os { code: 2, kind: NotFound, message: "No such file or directory" }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+thread '<unnamed>' panicked at library/core/src/panicking.rs:221:5:
+panic in a function that cannot unwind
+stack backtrace:
+   0:           0x80d715 - std::backtrace_rs::backtrace::libunwind::trace::hb29a729cf47ecf1c
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/../../backtrace/src/backtrace/libunwind.rs:116:5
+   1:           0x80d715 - std::backtrace_rs::backtrace::trace_unsynchronized::hc5fec0f2ed7b44c5
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/../../backtrace/src/backtrace/mod.rs:66:5
+   2:           0x80d715 - std::sys::backtrace::_print_fmt::ha4f63e0e9697258b
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/sys/backtrace.rs:65:5
+   3:           0x80d715 - <std::sys::backtrace::BacktraceLock::print::DisplayBacktrace as core::fmt::Display>::fmt::h669a4ee5d624d2a0
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/sys/backtrace.rs:40:26
+   4:           0x85c8ab - core::fmt::rt::Argument::fmt::hc959f0bbdabf725b
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/fmt/rt.rs:173:76
+   5:           0x85c8ab - core::fmt::write::hdc644ce60b2640e2
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/fmt/mod.rs:1182:21
+   6:           0x80227f - std::io::Write::write_fmt::hf03cfb5bcbbc99b9
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/io/mod.rs:1827:15
+   7:           0x80ff01 - std::sys::backtrace::BacktraceLock::print::h6f617cbe13dd42a4
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/sys/backtrace.rs:43:9
+   8:           0x80ff01 - std::panicking::default_hook::{{closure}}::hab809bf413a64a5a
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/panicking.rs:269:22
+   9:           0x80fbdc - std::panicking::default_hook::hcff2421ae6fdcdf4
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/panicking.rs:296:9
+  10:           0x810691 - std::panicking::rust_panic_with_hook::h1e46d77746e14164
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/panicking.rs:800:13
+  11:           0x8104c3 - std::panicking::begin_panic_handler::{{closure}}::hf2b218dde975f523
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/panicking.rs:667:13
+  12:           0x80dbd9 - std::sys::backtrace::__rust_end_short_backtrace::hab3d3f913d23d903
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/sys/backtrace.rs:168:18
+  13:           0x810184 - rust_begin_unwind
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/panicking.rs:665:5
+  14:           0x858ea5 - core::panicking::panic_nounwind_fmt::runtime::hb1b3aa49c097325e
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/panicking.rs:112:18
+  15:           0x858ea5 - core::panicking::panic_nounwind_fmt::h7f4e2d01fae4217a
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/panicking.rs:122:5
+  16:           0x858f32 - core::panicking::panic_nounwind::h1d423096d14a9ea9
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/panicking.rs:221:5
+  17:           0x859156 - core::panicking::panic_cannot_unwind::h021e5c45ffc70451
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/panicking.rs:309:5
+  18:           0x7b37a8 - cxlalloc_init
+                               at /home/cc/pasha/dependencies/cxlalloc/cxlalloc-static/src/lib.rs:143:1
+  19:           0x6c19a8 - _ZN4star9CXLMemory30init_cxlalloc_for_given_threadEmmmm
+                               at /root/CXLMemSim/workloads/tigon/common/CXLMemory.h:66:17
+  20:           0x5283c5 - _ZN4star11CoordinatorC2INS_4tpcc8DatabaseENS2_7ContextEEEmRT_RT0_
+                               at /root/CXLMemSim/workloads/tigon/core/Coordinator.h:46:28
+  21:           0x512c4d - main
+                               at /root/CXLMemSim/workloads/tigon/bench_tpcc.cpp:61:20
+  22:     0x729499033ca8 - <unknown>
+  23:     0x729499033d65 - __libc_start_main
+  24:           0x50fb25 - _start
+  25:                0x0 - <unknown>
+thread caused non-unwinding panic. aborting.
+*** Aborted at 1761241921 (unix time) try "date -d @1761241921" if you are using GNU date ***
+PC: @                0x0 (unknown)
+*** SIGABRT (@0x2a7f5) received by PID 174069 (TID 0x7294995fdc80) from PID 174069; stack trace: ***
+    @     0x729499aa9206 (unknown)
+    @     0x729499049df0 (unknown)
+    @     0x72949909e95c (unknown)
+    @     0x729499049cc2 gsignal
+    @     0x7294990324ac abort
+    @           0x81ba6a std::sys::pal::unix::abort_internal::h1323ac53033b4dae
+    @           0x810981 std::panicking::rust_panic_with_hook::h1e46d77746e14164
+    @           0x8104c3 std::panicking::begin_panic_handler::_$u7b$$u7b$closure$u7d$$u7d$::hf2b218dde975f523
+    @           0x80dbd9 std::sys::backtrace::__rust_end_short_backtrace::hab3d3f913d23d903
+    @           0x810184 rust_begin_unwind
+    @           0x858ea5 core::panicking::panic_nounwind_fmt::h7f4e2d01fae4217a
+    @           0x858f32 core::panicking::panic_nounwind::h1d423096d14a9ea9
+    @           0x859156 core::panicking::panic_cannot_unwind::h021e5c45ffc70451
+    @           0x7b37a8 cxlalloc_init
+    @           0x6c19a8 star::CXLMemory::init_cxlalloc_for_given_thread()
+    @           0x5283c5 star::Coordinator::Coordinator<>()
+    @           0x512c4d main
+    @     0x729499033ca8 (unknown)
+    @     0x729499033d65 __libc_start_main
+    @           0x50fb25 _start
+killing previous experiments...
+killing previous experiments...
+deleting log files...
+I20251023 17:52:12.471809 174150 Database.h:169] creating hash tables for database...
+I20251023 17:52:12.478979 174150 Database.h:149] warehouse initialization finished in 2 milliseconds.
+I20251023 17:52:12.479593 174150 Database.h:149] district initialization finished in 0 milliseconds.
+I20251023 17:52:12.571396 174150 Database.h:149] customer initialization finished in 91 milliseconds.
+I20251023 17:52:12.586259 174150 Database.h:149] customer_name_idx initialization finished in 14 milliseconds.
+I20251023 17:52:12.601325 174150 Database.h:149] history initialization finished in 14 milliseconds.
+I20251023 17:52:12.845568 174150 Database.h:149] new_order initialization finished in 244 milliseconds.
+I20251023 17:52:12.853693 174150 Database.h:149] order initialization finished in 8 milliseconds.
+I20251023 17:52:12.869196 174150 Database.h:149] order_cust initialization finished in 15 milliseconds.
+I20251023 17:52:13.005976 174150 Database.h:149] order_line initialization finished in 136 milliseconds.
+I20251023 17:52:13.042522 174150 Database.h:149] item initialization finished in 36 milliseconds.
+I20251023 17:52:13.190562 174150 Database.h:149] stock initialization finished in 148 milliseconds.
+I20251023 17:52:13.353883 174150 Database.h:736] TPC-C consistency check passed!
+thread '<unnamed>' panicked at cxlalloc/src/raw/ivshmem.rs:26:14:
+Failed to open `/dev/cxl_ivpci0`: is CXL driver module loaded?: Os { code: 2, kind: NotFound, message: "No such file or directory" }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+thread '<unnamed>' panicked at library/core/src/panicking.rs:221:5:
+panic in a function that cannot unwind
+stack backtrace:
+   0:           0x80d715 - std::backtrace_rs::backtrace::libunwind::trace::hb29a729cf47ecf1c
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/../../backtrace/src/backtrace/libunwind.rs:116:5
+   1:           0x80d715 - std::backtrace_rs::backtrace::trace_unsynchronized::hc5fec0f2ed7b44c5
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/../../backtrace/src/backtrace/mod.rs:66:5
+   2:           0x80d715 - std::sys::backtrace::_print_fmt::ha4f63e0e9697258b
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/sys/backtrace.rs:65:5
+   3:           0x80d715 - <std::sys::backtrace::BacktraceLock::print::DisplayBacktrace as core::fmt::Display>::fmt::h669a4ee5d624d2a0
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/sys/backtrace.rs:40:26
+   4:           0x85c8ab - core::fmt::rt::Argument::fmt::hc959f0bbdabf725b
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/fmt/rt.rs:173:76
+   5:           0x85c8ab - core::fmt::write::hdc644ce60b2640e2
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/fmt/mod.rs:1182:21
+   6:           0x80227f - std::io::Write::write_fmt::hf03cfb5bcbbc99b9
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/io/mod.rs:1827:15
+   7:           0x80ff01 - std::sys::backtrace::BacktraceLock::print::h6f617cbe13dd42a4
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/sys/backtrace.rs:43:9
+   8:           0x80ff01 - std::panicking::default_hook::{{closure}}::hab809bf413a64a5a
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/panicking.rs:269:22
+   9:           0x80fbdc - std::panicking::default_hook::hcff2421ae6fdcdf4
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/panicking.rs:296:9
+  10:           0x810691 - std::panicking::rust_panic_with_hook::h1e46d77746e14164
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/panicking.rs:800:13
+  11:           0x8104c3 - std::panicking::begin_panic_handler::{{closure}}::hf2b218dde975f523
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/panicking.rs:667:13
+  12:           0x80dbd9 - std::sys::backtrace::__rust_end_short_backtrace::hab3d3f913d23d903
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/sys/backtrace.rs:168:18
+  13:           0x810184 - rust_begin_unwind
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/std/src/panicking.rs:665:5
+  14:           0x858ea5 - core::panicking::panic_nounwind_fmt::runtime::hb1b3aa49c097325e
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/panicking.rs:112:18
+  15:           0x858ea5 - core::panicking::panic_nounwind_fmt::h7f4e2d01fae4217a
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/panicking.rs:122:5
+  16:           0x858f32 - core::panicking::panic_nounwind::h1d423096d14a9ea9
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/panicking.rs:221:5
+  17:           0x859156 - core::panicking::panic_cannot_unwind::h021e5c45ffc70451
+                               at /rustc/032be6f7bbe091c7dfa29f115e94b9cc9bae1758/library/core/src/panicking.rs:309:5
+  18:           0x7b37a8 - cxlalloc_init
+                               at /home/cc/pasha/dependencies/cxlalloc/cxlalloc-static/src/lib.rs:143:1
+  19:           0x6c19a8 - _ZN4star9CXLMemory30init_cxlalloc_for_given_threadEmmmm
+                               at /root/CXLMemSim/workloads/tigon/common/CXLMemory.h:66:17
+  20:           0x5283c5 - _ZN4star11CoordinatorC2INS_4tpcc8DatabaseENS2_7ContextEEEmRT_RT0_
+                               at /root/CXLMemSim/workloads/tigon/core/Coordinator.h:46:28
+  21:           0x512c4d - main
+                               at /root/CXLMemSim/workloads/tigon/bench_tpcc.cpp:61:20
+  22:     0x748055033ca8 - <unknown>
+  23:     0x748055033d65 - __libc_start_main
+  24:           0x50fb25 - _start
+  25:                0x0 - <unknown>
+thread caused non-unwinding panic. aborting.
+*** Aborted at 1761241933 (unix time) try "date -d @1761241933" if you are using GNU date ***
+PC: @                0x0 (unknown)
+*** SIGABRT (@0x2a846) received by PID 174150 (TID 0x7480555ccc80) from PID 174150; stack trace: ***
+    @     0x748055a7e206 (unknown)
+    @     0x748055049df0 (unknown)
+    @     0x74805509e95c (unknown)
+    @     0x748055049cc2 gsignal
+    @     0x7480550324ac abort
+    @           0x81ba6a std::sys::pal::unix::abort_internal::h1323ac53033b4dae
+    @           0x810981 std::panicking::rust_panic_with_hook::h1e46d77746e14164
+    @           0x8104c3 std::panicking::begin_panic_handler::_$u7b$$u7b$closure$u7d$$u7d$::hf2b218dde975f523
+    @           0x80dbd9 std::sys::backtrace::__rust_end_short_backtrace::hab3d3f913d23d903
+    @           0x810184 rust_begin_unwind
+    @           0x858ea5 core::panicking::panic_nounwind_fmt::h7f4e2d01fae4217a
+    @           0x858f32 core::panicking::panic_nounwind::h1d423096d14a9ea9
+    @           0x859156 core::panicking::panic_cannot_unwind::h021e5c45ffc70451
+    @           0x7b37a8 cxlalloc_init
+    @           0x6c19a8 star::CXLMemory::init_cxlalloc_for_given_thread()
+    @           0x5283c5 star::Coordinator::Coordinator<>()
+    @           0x512c4d main
+    @     0x748055033ca8 (unknown)
+    @     0x748055033d65 __libc_start_main
+    @           0x50fb25 _start
+killing previous experiments...
+killing previous experiments...
+deleting log files...
+I20251023 17:52:59.921329 174413 Database.h:169] creating hash tables for database...
+I20251023 17:52:59.924784 174413 Database.h:149] warehouse initialization finished in 1 milliseconds.
+I20251023 17:52:59.925236 174413 Database.h:149] district initialization finished in 0 milliseconds.
+I20251023 17:53:00.017586 174413 Database.h:149] customer initialization finished in 92 milliseconds.
+I20251023 17:53:00.032421 174413 Database.h:149] customer_name_idx initialization finished in 14 milliseconds.
+I20251023 17:53:00.047152 174413 Database.h:149] history initialization finished in 14 milliseconds.
+I20251023 17:53:00.292847 174413 Database.h:149] new_order initialization finished in 245 milliseconds.
+I20251023 17:53:00.301009 174413 Database.h:149] order initialization finished in 8 milliseconds.
+I20251023 17:53:00.316249 174413 Database.h:149] order_cust initialization finished in 15 milliseconds.
+I20251023 17:53:00.443641 174413 Database.h:149] order_line initialization finished in 127 milliseconds.
+I20251023 17:53:00.480577 174413 Database.h:149] item initialization finished in 36 milliseconds.
+I20251023 17:53:00.644352 174413 Database.h:149] stock initialization finished in 163 milliseconds.
+I20251023 17:53:00.795046 174413 Database.h:736] TPC-C consistency check passed!
+I20251023 17:53:00.795315 174413 CXLMemory.h:71] cxlalloc initialized for thread 0 (global ID = 0) on host 0: backend=dax resource=/dev/dax0.0
+I20251023 17:53:00.795370 174413 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251023 17:53:01.585796 174413 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251023 17:53:02.563551 174413 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251023 17:53:03.538162 174413 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251023 17:53:04.505594 174413 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251023 17:53:05.364307 174413 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251023 17:53:06.323537 174413 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251023 17:53:07.285262 174413 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251023 17:53:08.240761 174413 Coordinator.h:422] Coordinator 0 initializes CXL transport metadata (8 ringbuffers each with 8192 entries (each 65527 Bytes)
+I20251023 17:53:08.240806 174413 Coordinator.h:444] created global CXL EBR metadata
+I20251023 17:53:08.241052 174413 Coordinator.h:86] WAL Group Commiting to file [/root/pasha_log_group_commit.txt] using GroupCommit Logger
+I20251023 17:53:08.241060 174413 Coordinator.h:101] Coordinator initializes 3 workers.
+I20251023 17:53:08.242013 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:53:08.242172 174445 Coordinator.h:476] Listener 0 on coordinator 0 listening on 192.168.100.10:1234 tcp_no_delay 1 tcp_quick_ack 0
+I20251023 17:53:13.243563 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:53:18.245878 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:53:23.247498 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:53:28.249169 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:53:33.250583 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:53:38.252219 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:53:43.253834 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:53:48.255426 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:53:53.256976 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:53:58.258502 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:54:03.259959 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:54:08.261448 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:54:13.262827 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:54:18.264436 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:54:23.266178 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:54:28.268471 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:54:33.270053 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:54:38.271394 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:54:43.272876 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:54:48.274679 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:54:53.276247 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:54:58.277951 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:55:03.279232 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:55:08.280664 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:55:13.281659 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:55:18.282660 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:55:23.284137 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:55:28.285058 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:55:33.286496 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:55:38.288110 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:55:43.289495 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:55:48.291149 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:55:53.292901 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:55:58.294355 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:56:03.295989 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:56:08.297564 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:56:13.298966 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:56:18.300500 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:56:23.302345 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:56:28.303741 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:56:33.305897 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:56:38.307336 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:56:43.308992 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:56:48.310719 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:56:53.312664 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:56:58.313719 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:57:03.315047 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:57:08.316538 174413 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+F20251023 17:57:13.317978 174413 Coordinator.h:517] failed to connect to peers, exiting ...
+*** Check failure stack trace: ***
+    @     0x7274e5d8d031  google::LogMessage::Fail()
+    @     0x7274e5d94463  google::LogMessage::SendToLog()
+    @     0x7274e5d8cb78  google::LogMessage::Flush()
+    @     0x7274e5d9966d  google::LogMessageFatal::~LogMessageFatal()
+    @           0x529ba3  star::Coordinator::connectToPeers()
+    @           0x512c5a  main
+    @     0x7274e5433ca8  (unknown)
+    @     0x7274e5433d65  __libc_start_main
+    @           0x50fb25  _start
+killing previous experiments...
+killing previous experiments...
+deleting log files...
+I20251023 17:57:24.637615 174499 Database.h:169] creating hash tables for database...
+I20251023 17:57:24.640532 174499 Database.h:149] warehouse initialization finished in 1 milliseconds.
+I20251023 17:57:24.641033 174499 Database.h:149] district initialization finished in 0 milliseconds.
+I20251023 17:57:24.755295 174499 Database.h:149] customer initialization finished in 114 milliseconds.
+I20251023 17:57:24.774989 174499 Database.h:149] customer_name_idx initialization finished in 19 milliseconds.
+I20251023 17:57:24.797245 174499 Database.h:149] history initialization finished in 22 milliseconds.
+I20251023 17:57:25.085595 174499 Database.h:149] new_order initialization finished in 288 milliseconds.
+I20251023 17:57:25.093750 174499 Database.h:149] order initialization finished in 8 milliseconds.
+I20251023 17:57:25.109295 174499 Database.h:149] order_cust initialization finished in 15 milliseconds.
+I20251023 17:57:25.239653 174499 Database.h:149] order_line initialization finished in 130 milliseconds.
+I20251023 17:57:25.279052 174499 Database.h:149] item initialization finished in 39 milliseconds.
+I20251023 17:57:25.486445 174499 Database.h:149] stock initialization finished in 207 milliseconds.
+I20251023 17:57:25.662744 174499 Database.h:736] TPC-C consistency check passed!
+I20251023 17:57:25.662918 174499 CXLMemory.h:71] cxlalloc initialized for thread 0 (global ID = 0) on host 0: backend=dax resource=/dev/dax0.0
+I20251023 17:57:25.662950 174499 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251023 17:57:25.898767 174499 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251023 17:57:26.138525 174499 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251023 17:57:26.385022 174499 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251023 17:57:26.631337 174499 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251023 17:57:26.928800 174499 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251023 17:57:27.491569 174499 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251023 17:57:28.056402 174499 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251023 17:57:28.470252 174499 Coordinator.h:422] Coordinator 0 initializes CXL transport metadata (8 ringbuffers each with 8192 entries (each 65527 Bytes)
+I20251023 17:57:28.470343 174499 Coordinator.h:444] created global CXL EBR metadata
+I20251023 17:57:28.470561 174499 Coordinator.h:86] WAL Group Commiting to file [/root/pasha_log_group_commit.txt] using GroupCommit Logger
+I20251023 17:57:28.470568 174499 Coordinator.h:101] Coordinator initializes 3 workers.
+I20251023 17:57:28.471298 174531 Coordinator.h:476] Listener 0 on coordinator 0 listening on 192.168.100.10:1234 tcp_no_delay 1 tcp_quick_ack 0
+I20251023 17:57:28.472033 174499 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:57:33.473394 174499 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:57:38.475405 174499 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:57:43.476938 174499 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:57:48.479456 174499 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:57:53.481799 174499 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:57:58.483604 174499 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:58:03.485764 174499 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:58:08.487469 174499 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251023 17:58:13.489236 174499 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+killing previous experiments...

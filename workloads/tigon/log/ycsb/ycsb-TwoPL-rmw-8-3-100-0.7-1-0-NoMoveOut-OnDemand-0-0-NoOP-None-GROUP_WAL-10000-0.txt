@@ -1,0 +1,115 @@
+killing previous experiments...
+deleting log files...
+I20251022 20:19:57.649788 162524 bench_ycsb.cpp:66] RW_RATIO = 100, ZIPF_THETA = 0.7, CROSS_RATIO = 0
+I20251022 20:19:57.649914 162524 bench_ycsb.cpp:67] checkpoint 1 to 
+I20251022 20:19:57.649925 162524 bench_ycsb.cpp:68] cross_part_num 2
+I20251022 20:19:57.649935 162524 bench_ycsb.cpp:69] lotus_sp_parallel_exec_commit 0
+I20251022 20:19:57.649945 162524 bench_ycsb.cpp:70] granules_per_partition 2000
+I20251022 20:19:57.649956 162524 bench_ycsb.cpp:71] keysPerGranule 150
+I20251022 20:19:59.027614 162524 Database.h:81] ycsb initialization finished in 1369 milliseconds.
+I20251022 20:19:59.028250 162524 CXLMemory.h:71] cxlalloc initialized for thread 0 (global ID = 0) on host 0: backend=dax resource=/dev/dax0.0
+I20251022 20:19:59.028466 162524 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251022 20:19:59.307672 162524 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251022 20:19:59.572095 162524 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251022 20:19:59.828401 162524 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251022 20:20:00.081914 162524 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251022 20:20:00.321226 162524 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251022 20:20:00.633885 162524 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251022 20:20:00.947899 162524 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251022 20:20:01.261632 162524 Coordinator.h:422] Coordinator 0 initializes CXL transport metadata (8 ringbuffers each with 8192 entries (each 65527 Bytes)
+I20251022 20:20:01.261688 162524 Coordinator.h:444] created global CXL EBR metadata
+I20251022 20:20:01.262130 162524 Coordinator.h:86] WAL Group Commiting to file [/root/pasha_log_group_commit.txt] using GroupCommit Logger
+I20251022 20:20:01.262151 162524 Coordinator.h:101] Coordinator initializes 3 workers.
+I20251022 20:20:01.262934 162524 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:20:01.263046 162528 Coordinator.h:476] Listener 0 on coordinator 0 listening on 192.168.100.10:1234 tcp_no_delay 1 tcp_quick_ack 0
+I20251022 20:20:06.264254 162524 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:20:11.265784 162524 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:20:16.267038 162524 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:20:21.268319 162524 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:20:26.270049 162524 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:20:31.271327 162524 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:20:36.272377 162524 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:20:41.273372 162524 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:20:46.274137 162524 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:20:51.275084 162524 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:20:56.275959 162524 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:21:01.276896 162524 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:21:06.277840 162524 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:21:11.278846 162524 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:21:16.279896 162524 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:21:21.281250 162524 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:21:26.282413 162524 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:21:31.283572 162524 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:21:36.284698 162524 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:21:41.286250 162524 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:21:46.287438 162524 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:21:51.288709 162524 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:21:56.289812 162524 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:22:01.291244 162524 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:22:06.292948 162524 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:22:11.294400 162524 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+killing previous experiments...
+killing previous experiments...
+deleting log files...
+I20251022 20:22:22.975611 162578 bench_ycsb.cpp:66] RW_RATIO = 100, ZIPF_THETA = 0.7, CROSS_RATIO = 10
+I20251022 20:22:22.975791 162578 bench_ycsb.cpp:67] checkpoint 1 to 
+I20251022 20:22:22.975811 162578 bench_ycsb.cpp:68] cross_part_num 2
+I20251022 20:22:22.975826 162578 bench_ycsb.cpp:69] lotus_sp_parallel_exec_commit 0
+I20251022 20:22:22.975843 162578 bench_ycsb.cpp:70] granules_per_partition 2000
+I20251022 20:22:22.975860 162578 bench_ycsb.cpp:71] keysPerGranule 150
+I20251022 20:22:24.272025 162578 Database.h:81] ycsb initialization finished in 1277 milliseconds.
+I20251022 20:22:24.272567 162578 CXLMemory.h:71] cxlalloc initialized for thread 0 (global ID = 0) on host 0: backend=dax resource=/dev/dax0.0
+I20251022 20:22:24.272691 162578 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251022 20:22:24.555015 162578 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251022 20:22:24.821880 162578 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251022 20:22:25.087445 162578 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251022 20:22:25.352211 162578 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251022 20:22:25.615592 162578 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251022 20:22:25.878566 162578 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251022 20:22:26.141171 162578 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251022 20:22:26.404225 162578 Coordinator.h:422] Coordinator 0 initializes CXL transport metadata (8 ringbuffers each with 8192 entries (each 65527 Bytes)
+I20251022 20:22:26.404273 162578 Coordinator.h:444] created global CXL EBR metadata
+I20251022 20:22:26.404711 162578 Coordinator.h:86] WAL Group Commiting to file [/root/pasha_log_group_commit.txt] using GroupCommit Logger
+I20251022 20:22:26.404717 162578 Coordinator.h:101] Coordinator initializes 3 workers.
+I20251022 20:22:26.405304 162578 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:22:26.405524 162582 Coordinator.h:476] Listener 0 on coordinator 0 listening on 192.168.100.10:1234 tcp_no_delay 1 tcp_quick_ack 0
+I20251022 20:22:31.406682 162578 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:22:36.407765 162578 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:22:41.408982 162578 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:22:46.410179 162578 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:22:51.411458 162578 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:22:56.412463 162578 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:23:01.413506 162578 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:23:06.414814 162578 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:23:11.416323 162578 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+killing previous experiments...
+killing previous experiments...
+deleting log files...
+I20251022 20:33:47.838865 162794 bench_ycsb.cpp:66] RW_RATIO = 100, ZIPF_THETA = 0.7, CROSS_RATIO = 0
+I20251022 20:33:47.838980 162794 bench_ycsb.cpp:67] checkpoint 1 to 
+I20251022 20:33:47.838989 162794 bench_ycsb.cpp:68] cross_part_num 2
+I20251022 20:33:47.838994 162794 bench_ycsb.cpp:69] lotus_sp_parallel_exec_commit 0
+I20251022 20:33:47.839000 162794 bench_ycsb.cpp:70] granules_per_partition 2000
+I20251022 20:33:47.839007 162794 bench_ycsb.cpp:71] keysPerGranule 150
+I20251022 20:33:49.304307 162794 Database.h:81] ycsb initialization finished in 1458 milliseconds.
+I20251022 20:33:49.304948 162794 CXLMemory.h:71] cxlalloc initialized for thread 0 (global ID = 0) on host 0: backend=dax resource=/dev/dax0.0
+I20251022 20:33:49.305025 162794 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251022 20:33:49.804251 162794 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251022 20:33:50.318342 162794 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251022 20:33:50.839344 162794 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251022 20:33:51.374797 162794 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251022 20:33:51.909343 162794 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251022 20:33:52.456050 162794 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251022 20:33:53.000995 162794 MPSCRingBuffer.h:35] entry_struct_size: 65536 entry_num: 8192
+I20251022 20:33:53.529882 162794 Coordinator.h:422] Coordinator 0 initializes CXL transport metadata (8 ringbuffers each with 8192 entries (each 65527 Bytes)
+I20251022 20:33:53.529920 162794 Coordinator.h:444] created global CXL EBR metadata
+I20251022 20:33:53.530480 162794 Coordinator.h:86] WAL Group Commiting to file [/root/pasha_log_group_commit.txt] using GroupCommit Logger
+I20251022 20:33:53.530490 162794 Coordinator.h:101] Coordinator initializes 3 workers.
+I20251022 20:33:53.531348 162794 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:33:53.531430 162798 Coordinator.h:476] Listener 0 on coordinator 0 listening on 192.168.100.10:1234 tcp_no_delay 1 tcp_quick_ack 0
+I20251022 20:33:58.532625 162794 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:34:03.534018 162794 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:34:08.535502 162794 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:34:13.536972 162794 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+I20251022 20:34:18.539048 162794 Coordinator.h:522] Coordinator 0 failed to connect 1(192.168.100.11:1234)'s listener 0, retry in 5 seconds.
+killing previous experiments...
