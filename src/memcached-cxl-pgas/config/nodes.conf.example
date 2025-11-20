@@ -1,0 +1,31 @@
+# Memcached CXL PGAS Configuration
+# Format: key=value
+
+# Local node ID (0-based)
+local_node_id=0
+
+# Total number of nodes in the cluster
+num_nodes=2
+
+# Node configurations
+# Format: nodeX=hostname:port:cxl_base_address:cxl_size
+#   - hostname: IP address or hostname
+#   - port: PGAS communication port
+#   - cxl_base_address: Base address of CXL memory (hex)
+#   - cxl_size: Size of CXL memory in bytes
+
+# Node 0 - First host
+node0=192.168.1.10:5000:0x100000000:1073741824
+
+# Node 1 - Second host
+node1=192.168.1.11:5000:0x100000000:1073741824
+
+# Example with more nodes:
+# node2=192.168.1.12:5000:0x100000000:1073741824
+# node3=192.168.1.13:5000:0x100000000:1073741824
+
+# Notes:
+# - CXL base address can be found using: cat /proc/iomem | grep CXL
+# - Or for DAX devices: cat /sys/class/dax/dax*/resource
+# - Ensure all nodes have the same CXL memory size for balanced distribution
+# - Communication port must be open in firewall

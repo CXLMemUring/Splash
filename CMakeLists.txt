@@ -6,7 +6,14 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2 -Wall -Wextra")
 
 # Find MPI
-find_package(MPI REQUIRED)
+find_package(MPI)
+
+if(NOT MPI_FOUND)
+    message(WARNING "MPI not found. The tests require MPI to run on 2 hosts.")
+    message(WARNING "Install MPI with: sudo apt-get install openmpi-bin libopenmpi-dev")
+    message(WARNING "Or use Intel MPI, MPICH, etc.")
+    message(FATAL_ERROR "Please install MPI and try again.")
+endif()
 
 # Find OpenMP for thread-based tests
 find_package(OpenMP)
@@ -49,3 +56,4 @@ message(STATUS "CXL Litmus Tests Configuration:")
 message(STATUS "  C++ Compiler: ${CMAKE_CXX_COMPILER}")
 message(STATUS "  MPI Found: ${MPI_FOUND}")
 message(STATUS "  OpenMP Found: ${OpenMP_CXX_FOUND}")
+add_subdirectory("src/memcached-cxl-pgas/")
