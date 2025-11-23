@@ -38,3 +38,4 @@ hosts.txt
 *.tmp
 *.bak
 
+.cache
