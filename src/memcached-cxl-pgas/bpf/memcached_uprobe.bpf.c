@@ -2,12 +2,9 @@
 // bpftime uprobe program for memcached interception
 // This runs in userspace via bpftime runtime
 
-#include <stdint.h>
-#include <stddef.h>
-#include <stdbool.h>
-
-// BPF helpers (provided by bpftime)
-#define SEC(name) __attribute__((section(name), used))
+#include <vmlinux.h>
+#include <bpf/bpf_helpers.h>
+#include <bpf/bpf_tracing.h>
 
 // Ring buffer for passing events to userspace handler
 struct {

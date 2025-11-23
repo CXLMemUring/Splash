@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2 -Wall -Wextra")
 
 # Find MPI
+set(MPI_CXX_WORKS /usr/bin/mpicxx)
 find_package(MPI)
 
 if(NOT MPI_FOUND)
@@ -37,16 +38,12 @@ add_executable(cxl_litmus_tests ${LITMUS_SOURCES})
 
 # Link libraries
 target_link_libraries(cxl_litmus_tests
-    ${MPI_CXX_LIBRARIES}
+    MPI::MPI_CXX
 )
 
 if(OpenMP_CXX_FOUND)
     target_link_libraries(cxl_litmus_tests OpenMP::OpenMP_CXX)
 endif()
-
-# Add compilation flags for MPI
-target_compile_options(cxl_litmus_tests PRIVATE ${MPI_CXX_COMPILE_FLAGS})
-target_link_options(cxl_litmus_tests PRIVATE ${MPI_CXX_LINK_FLAGS})
 
 # Installation
 install(TARGETS cxl_litmus_tests DESTINATION bin)
@@ -57,3 +54,5 @@ message(STATUS "  C++ Compiler: ${CMAKE_CXX_COMPILER}")
 message(STATUS "  MPI Found: ${MPI_FOUND}")
 message(STATUS "  OpenMP Found: ${OpenMP_CXX_FOUND}")
 add_subdirectory("src/memcached-cxl-pgas/")
+add_subdirectory("src/gapbs-cxl-pgas/")
+add_subdirectory("lib/cxltime/")

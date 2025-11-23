@@ -31,16 +31,25 @@ target_link_libraries(memcached_cxl_pgas
 )
 
 # BPF compilation (requires clang and bpftool)
-find_program(CLANG clang)
+find_program(CLANG clang PATHS /usr/bin NO_DEFAULT_PATH)
 find_program(BPFTOOL bpftool)
 
 if(CLANG AND BPFTOOL)
     set(BPF_SOURCE ${CMAKE_CURRENT_SOURCE_DIR}/bpf/memcached_uprobe.bpf.c)
     set(BPF_OUTPUT ${CMAKE_BINARY_DIR}/memcached_uprobe.bpf.o)
 
+    # Get vmlinux and libbpf include paths
+    set(VMLINUX_DIR ${CMAKE_SOURCE_DIR}/lib/cxltime/third_party/vmlinux/x86)
+    set(LIBBPF_INCLUDE ${CMAKE_SOURCE_DIR}/lib/cxltime/third_party/libbpf/include)
+    set(LIBBPF_SRC ${CMAKE_SOURCE_DIR}/lib/cxltime/third_party/libbpf/src)
+
     add_custom_command(
         OUTPUT ${BPF_OUTPUT}
-        COMMAND ${CLANG} -target bpf -O2 -g -c ${BPF_SOURCE} -o ${BPF_OUTPUT}
+        COMMAND ${CLANG} -target bpf -D__TARGET_ARCH_x86 -O2 -g
+            -I${VMLINUX_DIR}
+            -I${LIBBPF_INCLUDE}
+            -I${LIBBPF_SRC}
+            -c ${BPF_SOURCE} -o ${BPF_OUTPUT}
         DEPENDS ${BPF_SOURCE}
         COMMENT "Compiling BPF program"
     )
