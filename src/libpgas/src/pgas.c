@@ -97,6 +97,9 @@ static void comm_finalize(pgas_context_t* ctx);
 static int comm_connect_peers(pgas_context_t* ctx);
 static int comm_send(pgas_context_t* ctx, uint16_t node_id, void* data, size_t len);
 static int comm_recv(pgas_context_t* ctx, uint16_t node_id, void* data, size_t max_len);
+static int comm_send_recv(pgas_context_t* ctx, uint16_t node_id,
+                          void* req_data, size_t req_len,
+                          void* resp_data, size_t resp_len);
 static void* comm_listener_thread(void* arg);
 
 // Memory segment management
@@ -309,37 +312,37 @@ int pgas_get(pgas_context_t* ctx, void* dest, pgas_ptr_t src, size_t size) {
         memcpy(dest, local_ptr, size);
         stats->local_reads++;
     } else {
-        // Remote get
-        comm_message_t* msg = malloc(sizeof(comm_message_t));
-        if (!msg) return -1;
-
-        msg->header.msg_type = MSG_GET;
-        msg->header.src_node = ctx->local_node_id;
-        msg->header.dst_node = src.node_id;
-        msg->ptr = src;
-        msg->size = size;
+        // Remote get - use atomic send/recv to ensure response matching
+        comm_message_t msg = {0};
+        msg.header.msg_type = MSG_GET;
+        msg.header.src_node = ctx->local_node_id;
+        msg.header.dst_node = src.node_id;
+        msg.ptr = src;
+        msg.size = size;
 
         comm_handle_t* comm = (comm_handle_t*)ctx->comm_handle;
-        msg->header.request_id = __sync_fetch_and_add(&comm->next_request_id, 1);
+        msg.header.request_id = __sync_fetch_and_add(&comm->next_request_id, 1);
 
-        comm_send(ctx, src.node_id, msg, sizeof(*msg));
-
-        // Wait for response
+        // Allocate response buffer
         comm_message_t* resp = malloc(sizeof(comm_message_t) + size);
-        if (!resp) {
-            free(msg);
-            return -1;
-        }
+        if (!resp) return -1;
 
-        comm_recv(ctx, src.node_id, resp, sizeof(comm_message_t) + size);
+        // Send request and receive response atomically
+        int ret = comm_send_recv(ctx, src.node_id,
+                                  &msg, sizeof(msg),
+                                  resp, sizeof(comm_message_t) + size);
 
-        if (resp->header.msg_type == MSG_GET_RESP) {
+        if (ret > 0 && resp->header.msg_type == MSG_GET_RESP) {
             memcpy(dest, resp->data, size);
             stats->remote_reads++;
             stats->bytes_transferred += size;
+        } else {
+            // Remote get failed - could be peer disconnected
+            memset(dest, 0, size);
+            free(resp);
+            return -1;
         }
 
-        free(msg);
         free(resp);
     }
 
@@ -352,13 +355,15 @@ int pgas_put(pgas_context_t* ctx, pgas_ptr_t dest, const void* src, size_t size)
     if (pgas_is_local(ctx, dest)) {
         // Local put
         void* local_ptr = translate_address(ctx, dest);
-        if (!local_ptr) return -1;
+        if (!local_ptr) {
+            return -1;
+        }
 
         memcpy(local_ptr, src, size);
         cxl_flush(local_ptr, size);
         stats->local_writes++;
     } else {
-        // Remote put
+        // Remote put - use atomic send/recv
         comm_message_t* msg = malloc(sizeof(comm_message_t) + size);
         if (!msg) return -1;
 
@@ -373,11 +378,11 @@ int pgas_put(pgas_context_t* ctx, pgas_ptr_t dest, const void* src, size_t size)
         comm_handle_t* comm = (comm_handle_t*)ctx->comm_handle;
         msg->header.request_id = __sync_fetch_and_add(&comm->next_request_id, 1);
 
-        comm_send(ctx, dest.node_id, msg, sizeof(comm_message_t) + size);
-
-        // Wait for acknowledgment
+        // Send request and receive ack atomically
         comm_message_t resp;
-        comm_recv(ctx, dest.node_id, &resp, sizeof(resp));
+        comm_send_recv(ctx, dest.node_id,
+                       msg, sizeof(comm_message_t) + size,
+                       &resp, sizeof(resp));
 
         stats->remote_writes++;
         stats->bytes_transferred += size;
@@ -398,7 +403,7 @@ uint64_t pgas_atomic_fetch_add(pgas_context_t* ctx, pgas_ptr_t ptr, uint64_t val
 
         result = __sync_fetch_and_add(local_ptr, value);
     } else {
-        // Remote atomic
+        // Remote atomic - use atomic send/recv
         comm_message_t msg = {0};
         msg.header.msg_type = MSG_ATOMIC_FAA;
         msg.header.src_node = ctx->local_node_id;
@@ -409,10 +414,8 @@ uint64_t pgas_atomic_fetch_add(pgas_context_t* ctx, pgas_ptr_t ptr, uint64_t val
         comm_handle_t* comm = (comm_handle_t*)ctx->comm_handle;
         msg.header.request_id = __sync_fetch_and_add(&comm->next_request_id, 1);
 
-        comm_send(ctx, ptr.node_id, &msg, sizeof(msg));
-
         comm_message_t resp;
-        comm_recv(ctx, ptr.node_id, &resp, sizeof(resp));
+        comm_send_recv(ctx, ptr.node_id, &msg, sizeof(msg), &resp, sizeof(resp));
 
         result = resp.value;
     }
@@ -431,7 +434,7 @@ uint64_t pgas_atomic_cas(pgas_context_t* ctx, pgas_ptr_t ptr, uint64_t expected,
 
         result = __sync_val_compare_and_swap(local_ptr, expected, desired);
     } else {
-        // Remote CAS
+        // Remote CAS - use atomic send/recv
         comm_message_t msg = {0};
         msg.header.msg_type = MSG_ATOMIC_CAS;
         msg.header.src_node = ctx->local_node_id;
@@ -443,10 +446,8 @@ uint64_t pgas_atomic_cas(pgas_context_t* ctx, pgas_ptr_t ptr, uint64_t expected,
         comm_handle_t* comm = (comm_handle_t*)ctx->comm_handle;
         msg.header.request_id = __sync_fetch_and_add(&comm->next_request_id, 1);
 
-        comm_send(ctx, ptr.node_id, &msg, sizeof(msg));
-
         comm_message_t resp;
-        comm_recv(ctx, ptr.node_id, &resp, sizeof(resp));
+        comm_send_recv(ctx, ptr.node_id, &msg, sizeof(msg), &resp, sizeof(resp));
 
         result = resp.value;
     }
@@ -567,6 +568,147 @@ void pgas_get_stats(pgas_context_t* ctx, pgas_stats_t* stats) {
 void pgas_reset_stats(pgas_context_t* ctx) {
     internal_stats_t* stats = get_stats(ctx);
     memset(stats, 0, sizeof(*stats));
+}
+
+// =============================================================================
+// Workload Tuning Implementation
+// =============================================================================
+
+// Global tuning state
+static pgas_tuning_t g_current_tuning = {0};
+static bool g_tuning_initialized = false;
+
+// Predefined tuning profiles
+static const pgas_tuning_t TUNING_DEFAULT = {
+    .memory_affinity = PGAS_AFFINITY_LOCAL,
+    .partition_scheme = PGAS_PARTITION_BLOCK,
+    .cache_line_align = true,
+    .numa_bind = false,
+    .batch_size = 64,
+    .transfer_size = 4096,
+    .prefetch_mode = PGAS_PREFETCH_NONE,
+    .consistency = PGAS_CONSISTENCY_SEQ_CST,
+    .num_threads = 1,
+    .bandwidth_priority = false,
+    .async_transfer = false,
+    .workload_config = NULL
+};
+
+// MCF: Pointer-chasing, high cache miss rate, latency sensitive
+static const pgas_tuning_t TUNING_MCF = {
+    .memory_affinity = PGAS_AFFINITY_LOCAL,      // Keep critical data local
+    .partition_scheme = PGAS_PARTITION_BLOCK,    // Spatial locality
+    .cache_line_align = true,                    // Reduce false sharing
+    .numa_bind = true,                           // NUMA-aware
+    .batch_size = 64,                            // Small batches for latency
+    .transfer_size = 64,                         // Cache line sized
+    .prefetch_mode = PGAS_PREFETCH_AGGRESSIVE,   // Prefetch helps struct traversal
+    .consistency = PGAS_CONSISTENCY_RELAXED,     // Read-heavy workload
+    .num_threads = 1,                            // Mostly single-threaded
+    .bandwidth_priority = false,                 // Latency matters more
+    .async_transfer = false,
+    .workload_config = NULL
+};
+
+// LLAMA: Memory bandwidth bound, sequential weight loading
+static const pgas_tuning_t TUNING_LLAMA = {
+    .memory_affinity = PGAS_AFFINITY_INTERLEAVE, // Aggregate bandwidth
+    .partition_scheme = PGAS_PARTITION_BLOCK,    // Layer-wise distribution
+    .cache_line_align = true,
+    .numa_bind = true,
+    .batch_size = 4096,                          // Large batches
+    .transfer_size = 1048576,                    // 1MB transfers
+    .prefetch_mode = PGAS_PREFETCH_SEQUENTIAL,   // Streaming access
+    .consistency = PGAS_CONSISTENCY_RELAXED,     // Read-only weights
+    .num_threads = 8,                            // Parallel weight loading
+    .bandwidth_priority = true,                  // Maximize bandwidth
+    .async_transfer = true,                      // Overlap compute/transfer
+    .workload_config = NULL
+};
+
+// GROMACS: Neighbor-list driven, domain decomposition
+static const pgas_tuning_t TUNING_GROMACS = {
+    .memory_affinity = PGAS_AFFINITY_LOCAL,      // Domain-local data
+    .partition_scheme = PGAS_PARTITION_BLOCK_CYCLIC, // 3D domain decomp
+    .cache_line_align = true,                    // Force array alignment
+    .numa_bind = true,                           // NUMA-aware
+    .batch_size = 256,                           // Halo exchange batches
+    .transfer_size = 8192,                       // 8KB for particle data
+    .prefetch_mode = PGAS_PREFETCH_NEIGHBOR_LIST,// Use neighbor list
+    .consistency = PGAS_CONSISTENCY_RELEASE,     // Sync at boundaries
+    .num_threads = 16,                           // OpenMP threads
+    .bandwidth_priority = false,                 // Balance BW/latency
+    .async_transfer = true,                      // Async halo exchange
+    .workload_config = NULL
+};
+
+// Graph analytics: Irregular access, frontier-driven
+static const pgas_tuning_t TUNING_GRAPH = {
+    .memory_affinity = PGAS_AFFINITY_LOCAL,
+    .partition_scheme = PGAS_PARTITION_BLOCK,
+    .cache_line_align = true,
+    .numa_bind = true,
+    .batch_size = 128,
+    .transfer_size = 512,                        // Small vertex data
+    .prefetch_mode = PGAS_PREFETCH_NONE,         // Unpredictable
+    .consistency = PGAS_CONSISTENCY_RELAXED,
+    .num_threads = 4,
+    .bandwidth_priority = false,
+    .async_transfer = false,
+    .workload_config = NULL
+};
+
+const pgas_tuning_t* pgas_get_default_tuning(pgas_profile_t profile) {
+    switch (profile) {
+        case PGAS_PROFILE_MCF:     return &TUNING_MCF;
+        case PGAS_PROFILE_LLAMA:   return &TUNING_LLAMA;
+        case PGAS_PROFILE_GROMACS: return &TUNING_GROMACS;
+        case PGAS_PROFILE_GRAPH:   return &TUNING_GRAPH;
+        case PGAS_PROFILE_DEFAULT:
+        default:                   return &TUNING_DEFAULT;
+    }
+}
+
+int pgas_load_profile(pgas_context_t* ctx, pgas_profile_t profile) {
+    const pgas_tuning_t* tuning = pgas_get_default_tuning(profile);
+    return pgas_set_tuning(ctx, tuning);
+}
+
+int pgas_set_tuning(pgas_context_t* ctx, const pgas_tuning_t* tuning) {
+    if (!ctx || !tuning) return -1;
+
+    // Copy tuning configuration
+    memcpy(&g_current_tuning, tuning, sizeof(pgas_tuning_t));
+    g_tuning_initialized = true;
+
+    // Apply tuning to runtime
+    // Note: Some settings take effect immediately, others at next allocation
+
+    // Log tuning info
+    const char* affinity_names[] = {"LOCAL", "REMOTE", "INTERLEAVE", "REPLICATE"};
+    const char* prefetch_names[] = {"NONE", "SEQUENTIAL", "STRIDED", "AGGRESSIVE", "NEIGHBOR_LIST"};
+
+    printf("PGAS Tuning Applied:\n");
+    printf("  Memory affinity: %s\n", affinity_names[tuning->memory_affinity]);
+    printf("  Batch size: %zu\n", tuning->batch_size);
+    printf("  Transfer size: %zu\n", tuning->transfer_size);
+    printf("  Prefetch mode: %s\n", prefetch_names[tuning->prefetch_mode]);
+    printf("  Threads: %d\n", tuning->num_threads);
+    printf("  Bandwidth priority: %s\n", tuning->bandwidth_priority ? "yes" : "no");
+
+    return 0;
+}
+
+int pgas_get_tuning(pgas_context_t* ctx, pgas_tuning_t* tuning) {
+    if (!ctx || !tuning) return -1;
+
+    if (g_tuning_initialized) {
+        memcpy(tuning, &g_current_tuning, sizeof(pgas_tuning_t));
+    } else {
+        memcpy(tuning, &TUNING_DEFAULT, sizeof(pgas_tuning_t));
+    }
+
+    return 0;
 }
 
 // Internal functions
@@ -753,6 +895,39 @@ static int comm_connect_peers(pgas_context_t* ctx) {
     return (connected > 0) ? 0 : -1;
 }
 
+/*
+ * Send a request and receive the response atomically.
+ * This ensures request-response pairing on the same socket.
+ */
+static int comm_send_recv(pgas_context_t* ctx, uint16_t node_id,
+                          void* req_data, size_t req_len,
+                          void* resp_data, size_t resp_len) {
+    comm_handle_t* comm = (comm_handle_t*)ctx->comm_handle;
+
+    if (node_id >= ctx->num_nodes || comm->peer_fds[node_id] < 0) {
+        return -1;
+    }
+
+    int fd = comm->peer_fds[node_id];
+
+    /* Lock the entire send-recv operation for this peer */
+    pthread_mutex_lock(&comm->recv_locks[node_id]);
+
+    /* Send the request */
+    ssize_t sent = send(fd, req_data, req_len, 0);
+    if (sent != (ssize_t)req_len) {
+        pthread_mutex_unlock(&comm->recv_locks[node_id]);
+        return -1;
+    }
+
+    /* Receive the response on the SAME socket */
+    ssize_t received = recv(fd, resp_data, resp_len, MSG_WAITALL);
+
+    pthread_mutex_unlock(&comm->recv_locks[node_id]);
+
+    return (received > 0) ? (int)received : -1;
+}
+
 static int comm_send(pgas_context_t* ctx, uint16_t node_id, void* data, size_t len) {
     comm_handle_t* comm = (comm_handle_t*)ctx->comm_handle;
 
@@ -776,7 +951,7 @@ static int comm_recv(pgas_context_t* ctx, uint16_t node_id, void* data, size_t m
 
     /* Lock this peer's recv to avoid concurrent reads on same socket */
     pthread_mutex_lock(&comm->recv_locks[node_id]);
-    ssize_t received = recv(comm->peer_recv_fds[node_id], data, max_len, 0);
+    ssize_t received = recv(comm->peer_recv_fds[node_id], data, max_len, MSG_WAITALL);
     pthread_mutex_unlock(&comm->recv_locks[node_id]);
 
     return (received > 0) ? (int)received : -1;

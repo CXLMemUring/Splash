@@ -1,0 +1,10 @@
+prefix=@CMAKE_INSTALL_PREFIX@
+exec_prefix=${prefix}
+libdir=${exec_prefix}/@CMAKE_INSTALL_LIBDIR@
+includedir=${prefix}/@CMAKE_INSTALL_INCLUDEDIR@
+
+Name: pgas
+Description: Partitioned Global Address Space library for CXL memory
+Version: @PROJECT_VERSION@
+Libs: -L${libdir} -lpgas -lpthread
+Cflags: -I${includedir}/pgas

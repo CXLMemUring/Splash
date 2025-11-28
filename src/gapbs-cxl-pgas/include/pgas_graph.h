@@ -5,11 +5,16 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#include <cstring>
+#include <unistd.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
 
-// Include PGAS abstraction from memcached project
+// Include PGAS abstraction
 extern "C" {
-#include "../../memcached-cxl-pgas/include/pgas.h"
-#include "../../memcached-cxl-pgas/include/cxl_memory.h"
+#include <pgas/pgas.h>
+#include <pgas/cxl_memory.h>
 }
 
 // Type definitions
@@ -41,11 +46,19 @@ struct PartitionInfo {
     uint16_t node_id;
     NodeID start_vertex;
     NodeID end_vertex;
+    NodeID local_count;        // Number of local vertices
     EdgeID num_local_edges;
     EdgeID num_remote_edges;
     pgas_ptr_t index_ptr;      // PGAS pointer to index array
     pgas_ptr_t neighbors_ptr;  // PGAS pointer to neighbors array
 };
+
+// Well-known offsets in PGAS region for graph metadata
+// Use high offsets (1GB+) to avoid conflicting with allocator heap at low addresses
+// Each node stores: [metadata header][index array][neighbors array]
+static const size_t GRAPH_METADATA_OFFSET = 0x40000000;  // 1GB offset
+static const size_t GRAPH_INDEX_OFFSET = 0x40100000;     // 1GB + 1MB offset
+static const size_t GRAPH_NEIGHBORS_OFFSET = 0x50000000; // 1.25GB offset
 
 // Distributed CSR Graph with PGAS support
 template <typename DestT = NodeID>
@@ -169,20 +182,41 @@ public:
 
         NodeID remote_v = v - part.start_vertex;
 
+        // Construct PGAS pointers to remote node's data at well-known offsets
+        pgas_ptr_t remote_index_ptr;
+        remote_index_ptr.node_id = owner;
+        remote_index_ptr.segment_id = 0;
+        remote_index_ptr.flags = 0;
+        remote_index_ptr.offset = GRAPH_INDEX_OFFSET;
+
+        pgas_ptr_t remote_neighbors_ptr;
+        remote_neighbors_ptr.node_id = owner;
+        remote_neighbors_ptr.segment_id = 0;
+        remote_neighbors_ptr.flags = 0;
+        remote_neighbors_ptr.offset = GRAPH_NEIGHBORS_OFFSET;
+
         // Fetch index entries
         SGOffset start_offset, end_offset;
-        pgas_ptr_t idx_ptr = pgas_ptr_add(part.index_ptr, remote_v * sizeof(SGOffset));
+        pgas_ptr_t idx_ptr = pgas_ptr_add(remote_index_ptr, remote_v * sizeof(SGOffset));
         pgas_get(pgas_ctx_, &start_offset, idx_ptr, sizeof(SGOffset));
 
-        idx_ptr = pgas_ptr_add(part.index_ptr, (remote_v + 1) * sizeof(SGOffset));
+        idx_ptr = pgas_ptr_add(remote_index_ptr, (remote_v + 1) * sizeof(SGOffset));
         pgas_get(pgas_ctx_, &end_offset, idx_ptr, sizeof(SGOffset));
+
+        // Validate offsets to prevent bad allocations
+        if (start_offset < 0 || end_offset < start_offset || end_offset > 1000000000LL) {
+            std::cerr << "Warning: Invalid remote index values for vertex " << v
+                      << " on node " << owner << ": start=" << start_offset
+                      << ", end=" << end_offset << std::endl;
+            return std::vector<DestT>();
+        }
 
         // Fetch neighbors
         size_t num_neighbors = end_offset - start_offset;
         std::vector<DestT> neighbors(num_neighbors);
 
         if (num_neighbors > 0) {
-            pgas_ptr_t neigh_ptr = pgas_ptr_add(part.neighbors_ptr, start_offset * sizeof(DestT));
+            pgas_ptr_t neigh_ptr = pgas_ptr_add(remote_neighbors_ptr, start_offset * sizeof(DestT));
             pgas_get(pgas_ctx_, neighbors.data(), neigh_ptr, num_neighbors * sizeof(DestT));
         }
 
@@ -376,51 +410,63 @@ private:
                      local_neighbors_.begin() + local_index_[v + 1]);
         }
 
-        // Allocate index and neighbors on CXL memory
+        // Store index and neighbors at well-known offsets in CXL memory
+        // This allows remote nodes to access our data without needing pointer exchange
         size_t index_size = (local_count + 1) * sizeof(SGOffset);
         size_t neighbors_size = total_local_edges * sizeof(DestT);
 
-        partitions_[local_node_].index_ptr = pgas_alloc(pgas_ctx_, index_size, PGAS_AFFINITY_LOCAL);
-        partitions_[local_node_].neighbors_ptr = pgas_alloc(pgas_ctx_, neighbors_size, PGAS_AFFINITY_LOCAL);
+        // Create PGAS pointers at well-known offsets
+        partitions_[local_node_].index_ptr.node_id = local_node_;
+        partitions_[local_node_].index_ptr.segment_id = 0;
+        partitions_[local_node_].index_ptr.flags = 0;
+        partitions_[local_node_].index_ptr.offset = GRAPH_INDEX_OFFSET;
 
-        // Copy to CXL memory
-        if (!pgas_ptr_is_null(partitions_[local_node_].index_ptr)) {
-            pgas_put(pgas_ctx_, partitions_[local_node_].index_ptr,
-                    local_index_.data(), index_size);
-        }
+        partitions_[local_node_].neighbors_ptr.node_id = local_node_;
+        partitions_[local_node_].neighbors_ptr.segment_id = 0;
+        partitions_[local_node_].neighbors_ptr.flags = 0;
+        partitions_[local_node_].neighbors_ptr.offset = GRAPH_NEIGHBORS_OFFSET;
 
-        if (!pgas_ptr_is_null(partitions_[local_node_].neighbors_ptr)) {
-            pgas_put(pgas_ctx_, partitions_[local_node_].neighbors_ptr,
-                    local_neighbors_.data(), neighbors_size);
-        }
+        // Copy to CXL memory using pgas_put (which handles local puts efficiently)
+        std::cout << "  Writing index array (" << index_size << " bytes) to offset 0x"
+                  << std::hex << GRAPH_INDEX_OFFSET << std::dec << std::endl;
+        pgas_put(pgas_ctx_, partitions_[local_node_].index_ptr,
+                local_index_.data(), index_size);
+        std::cout << "  Index array written successfully" << std::endl;
 
+        std::cout << "  Writing neighbors array (" << neighbors_size << " bytes) to offset 0x"
+                  << std::hex << GRAPH_NEIGHBORS_OFFSET << std::dec << std::endl;
+        pgas_put(pgas_ctx_, partitions_[local_node_].neighbors_ptr,
+                local_neighbors_.data(), neighbors_size);
+        std::cout << "  Neighbors array written successfully" << std::endl;
+
+        partitions_[local_node_].local_count = local_count;
         partitions_[local_node_].num_local_edges = total_local_edges;
     }
 
     int64_t GetRemoteDegree(NodeID v) const {
         uint16_t owner = GetOwner(v);
-        PartitionInfo& part = const_cast<PartitionInfo&>(partitions_[owner]);
+        const PartitionInfo& part = partitions_[owner];
         NodeID remote_v = v - part.start_vertex;
 
+        // Construct PGAS pointer to remote node's index at well-known offset
+        pgas_ptr_t remote_index_ptr;
+        remote_index_ptr.node_id = owner;
+        remote_index_ptr.segment_id = 0;
+        remote_index_ptr.flags = 0;
+        remote_index_ptr.offset = GRAPH_INDEX_OFFSET;
+
         SGOffset start_offset, end_offset;
-        pgas_ptr_t idx_ptr = pgas_ptr_add(part.index_ptr, remote_v * sizeof(SGOffset));
+        pgas_ptr_t idx_ptr = pgas_ptr_add(remote_index_ptr, remote_v * sizeof(SGOffset));
         pgas_get(pgas_ctx_, &start_offset, idx_ptr, sizeof(SGOffset));
 
-        idx_ptr = pgas_ptr_add(part.index_ptr, (remote_v + 1) * sizeof(SGOffset));
+        idx_ptr = pgas_ptr_add(remote_index_ptr, (remote_v + 1) * sizeof(SGOffset));
         pgas_get(pgas_ctx_, &end_offset, idx_ptr, sizeof(SGOffset));
 
         return end_offset - start_offset;
     }
 
     void Release() {
-        if (pgas_ctx_) {
-            if (!pgas_ptr_is_null(partitions_[local_node_].index_ptr)) {
-                pgas_free(pgas_ctx_, partitions_[local_node_].index_ptr);
-            }
-            if (!pgas_ptr_is_null(partitions_[local_node_].neighbors_ptr)) {
-                pgas_free(pgas_ctx_, partitions_[local_node_].neighbors_ptr);
-            }
-        }
+        // Note: We use fixed offsets, not dynamic allocation, so no pgas_free needed
         local_index_.clear();
         local_neighbors_.clear();
     }

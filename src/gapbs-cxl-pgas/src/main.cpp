@@ -202,6 +202,11 @@ int main(int argc, char* argv[]) {
     graph.PrintStats();
     std::cout << "Build time: " << build_time << " seconds\n\n";
 
+    // Synchronize all nodes before running algorithm
+    std::cout << "Synchronizing nodes...\n";
+    graph.Barrier();
+    std::cout << "All nodes ready.\n\n";
+
     // Run algorithm
     std::cout << "Running algorithm: " << algorithm << "\n";
 
