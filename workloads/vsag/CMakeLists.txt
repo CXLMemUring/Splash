@@ -176,14 +176,14 @@ include (extern/boost/boost.cmake)
 include (extern/openblas/openblas.cmake)
 include (extern/mkl/mkl.cmake)
 include (extern/diskann/diskann.cmake)
+include (extern/fmt/fmt.cmake)
 include (extern/spdlog/spdlog.cmake)
 include (extern/catch2/catch2.cmake)
 include (extern/cpuinfo/cpuinfo.cmake)
-include (extern/fmt/fmt.cmake)
 include (extern/thread_pool/thread_pool.cmake)
 include (extern/roaringbitmap/roaringbitmap.cmake)
 
-include_directories (${CMAKE_CURRENT_BINARY_DIR}/spdlog/install/include)
+# spdlog include directories are set by FetchContent in spdlog.cmake
 include_directories (include)
 include_directories (src)
 

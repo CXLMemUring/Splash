@@ -27,27 +27,11 @@ long_description="""VSAG is a vector indexing library used for similarity search
 example_module = Extension('example', sources=['example.c'])
 
 def get_version():
-    from setuptools_scm import get_version as scm_get_version
-    from setuptools_scm.version import release_branch_semver, get_local_node_and_date, get_no_local_node
-    from pep440 import is_canonical
-
-    # the package with local version is not allowed to be uploaded to the
-    # pypi. set build_local_version=True if you're building a local wheel.
-    build_local_version = False
-    local_scheme = get_no_local_node
-    if build_local_version:
-        local_scheme = get_local_node_and_date
-
-    version = scm_get_version(root=f'{__file__}/../..', version_scheme=release_branch_semver, local_scheme=local_scheme)
+    # Use fixed version for local build
+    version = '0.0.1.dev0'
     version_file = os.path.join(os.path.dirname(__file__), 'pyvsag', '_version.py')
     with open(version_file, 'w') as f:
         f.write(f"\n__version__ = '{version}'\n")
-
-    # make sure the publish version is correct
-    if not build_local_version and not is_canonical(version):
-        print(f"!!\n\tversion {version} is incorrect, exit\n!!")
-        exit(1)
-
     return version
 
 setup(

@@ -28,5 +28,29 @@ target_link_libraries(simple_profile_test pgas)
 add_executable(workload_benchmark workload_benchmark.c)
 target_link_libraries(workload_benchmark pgas m)
 
+# CXL workload benchmark
+add_executable(cxl_workload_benchmark cxl_workload_benchmark.c)
+target_link_libraries(cxl_workload_benchmark pgas m)
+
+# MCF integration test
+add_executable(mcf_integration_test mcf_integration_test.c)
+target_link_libraries(mcf_integration_test pgas m)
+
+# LLAMA integration test
+add_executable(llama_integration_test llama_integration_test.c)
+target_link_libraries(llama_integration_test pgas m)
+
+# GROMACS integration test
+add_executable(gromacs_integration_test gromacs_integration_test.c)
+target_link_libraries(gromacs_integration_test pgas m)
+
+# VSAG integration test
+add_executable(vsag_integration_test vsag_integration_test.c)
+target_link_libraries(vsag_integration_test pgas m)
+
+# VSAG PGAS benchmark
+add_executable(vsag_pgas_benchmark vsag_pgas_benchmark.c)
+target_link_libraries(vsag_pgas_benchmark pgas m)
+
 # Add tests
 add_test(NAME selfloop_test COMMAND pgas_selfloop_test -c ${CMAKE_CURRENT_BINARY_DIR}/node0.conf -i 100)

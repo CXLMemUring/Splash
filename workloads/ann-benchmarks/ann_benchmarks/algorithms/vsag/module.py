@@ -31,19 +31,15 @@ class Vsag(BaseANN):
         print(self._params)
 
     def fit(self, X):
+        # Removed problematic parameters that cause segfaults:
+        # - max_elements, use_static, sq_num_bits, alpha, redundant_rate
         index_params = {
             "dtype": "float32",
-            "metric_type": "l2",
+            "metric_type": "l2" if self._metric == "l2" else "ip",
             "dim": len(X[0]),
             "hnsw": {
                 "max_degree": self._params["M"],
                 "ef_construction": self._params["efc"],
-                "ef_search": self._params["efc"],
-                "max_elements": len(X),
-                "use_static": False,
-                "sq_num_bits": self._params["sq"],
-                "alpha": self._params["a"],
-                "redundant_rate": self._params["rs"]
             }
         }
         print(index_params)
@@ -51,8 +47,11 @@ class Vsag(BaseANN):
         if self._metric == "ip":
             X[np.linalg.norm(X, axis=1) == 0] = 1.0 / np.sqrt(X.shape[1])
             X /= np.linalg.norm(X, axis=1)[:, np.newaxis]
-        self._index.build(vectors=X,
-                          ids=range(len(X)),
+        # Flatten vectors for C++ API and ensure contiguous memory
+        X_flat = np.ascontiguousarray(X.flatten().astype(np.float32))
+        ids = np.arange(len(X), dtype=np.int64)
+        self._index.build(vectors=X_flat,
+                          ids=ids,
                           num_elements=len(X),
                           dim=len(X[0]))
 
@@ -72,6 +71,8 @@ class Vsag(BaseANN):
             length = np.linalg.norm(v)
         if length == 0:
             length = 1
-        ids, dists = self._index.knn_search(vector=v / length, k=n, parameters=json.dumps(search_params))
+        # Ensure vector is contiguous float32 array
+        query_vec = np.ascontiguousarray((v / length).astype(np.float32))
+        ids, dists = self._index.knn_search(vector=query_vec, k=n, parameters=json.dumps(search_params))
         return ids
 

@@ -1,3 +1,10 @@
+# Import pyvsag FIRST to avoid symbol conflicts with h5py
+# This must happen before h5py is imported
+try:
+    import pyvsag
+except ImportError:
+    pass
+
 import argparse
 from dataclasses import replace
 import h5py
